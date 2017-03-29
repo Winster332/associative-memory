@@ -8,20 +8,50 @@ namespace FuckingNeuralNetwork.Neural
 {
 	public class Synapse<NData>
 	{
-		public Neuron<NData> InputNeuron { get; set; }
 		public Neuron<NData> OutputNeuron { get; set; }
+		public Neuron<NData> InputNeuron { get; set; }
 		public enum TYPE_IO { Input, Output, None }
 		public TYPE_IO TypeIO { get; set; }
 		public bool IsActive { get; set; }
-		public Synapse()
+		public float Threshold { get; set; }
+        public Synapse()
 		{
 			TypeIO = TYPE_IO.None;
 			IsActive = false;
 		}
+		public Synapse(Neuron<NData> output, Neuron<NData> input, TYPE_IO type, float threshold)
+		{
+			this.InputNeuron = input;
+			this.OutputNeuron = output;
+			this.TypeIO = type;
+			this.Threshold = threshold;
+			this.IsActive = false;
+		}
 		public Synapse<NData> Send(List<float> input)
 		{
-			
+			if (InputNeuron != null)
+			{
+				Console.WriteLine(OutputNeuron.Power);
+				if (OutputNeuron.Power <= Threshold)
+				{
+					IsActive = true;
+					InputNeuron.Active(input);
+				}
+			}
+			Console.WriteLine(this.ToString());
+
 			return this;
+		}
+
+		public void Reset()
+		{
+			IsActive = false;
+		}
+
+		public override string ToString()
+		{
+			return "Output[" + OutputNeuron.GetHashCode() + "] Input[" + InputNeuron.GetHashCode() +
+				"] Type[" + TypeIO + "] IsActive[" + IsActive + "] Threshold[" + Threshold + "]";
 		}
 	}
 }

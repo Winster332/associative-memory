@@ -45,6 +45,12 @@ namespace FuckingNeuralNetwork.Neural
 			{
 				Power += Weight[i] * input[i];
 			}
+
+			Synapses.ForEach(synapse =>
+			{
+				if (synapse.TypeIO == Synapse<NData>.TYPE_IO.Input)
+					synapse.Send(DeformInput(synapse.InputNeuron.Weight, input, 1, 1));
+			});
 			return this;
 		}
 
@@ -53,5 +59,17 @@ namespace FuckingNeuralNetwork.Neural
 			Power = 0;
 			return this;
 		}
-    }
+		public List<float> DeformInput(List<float> weight, List<float> input, float desired, float velocity)
+		{
+			var output = new List<float>();
+
+			for (var i = 0; i < weight.Count; i++)
+			{
+				var error = input[i] * weight[i];
+				output.Add(weight[i] + error * desired * input[i] * velocity);
+			}
+
+			return output;
+		}
+	}
 }
