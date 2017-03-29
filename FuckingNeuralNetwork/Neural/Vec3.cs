@@ -89,6 +89,10 @@ namespace FuckingNeuralNetwork.Neural
 			Vec3 v = (Vec3)obj;
 			return v.X == this.X && v.Y == this.Y && v.Z == this.Z;
 		}
+		public override int GetHashCode()
+		{
+			return base.GetHashCode();
+		}
 		public override string ToString()
 		{
 			return "x[" + X + "] y[" + Y + "] z[" + Z + "]";
