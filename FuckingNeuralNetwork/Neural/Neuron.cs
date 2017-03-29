@@ -8,7 +8,7 @@ namespace FuckingNeuralNetwork.Neural
 {
 	public class Neuron<NData> : Vec3
 	{
-		private List<Synapse<NData>> Synapses { get; set; } = new List<Synapse<NData>>();
+		public List<Synapse<NData>> Synapses { get; set; } = new List<Synapse<NData>>();
 		public List<float> Weight { get; set; } = new List<float>();
 		public float Power { get; set; } = 0;
 		public NData Data { get; set; }
@@ -54,9 +54,13 @@ namespace FuckingNeuralNetwork.Neural
 			return this;
 		}
 
-		public Neuron<NData> Reset()
+		public Neuron<NData> Reset(bool withSynapse = false)
 		{
 			Power = 0;
+
+			if (withSynapse)
+				Synapses.ForEach(s => s.Reset());
+
 			return this;
 		}
 		public List<float> DeformInput(List<float> weight, List<float> input, float desired, float velocity)

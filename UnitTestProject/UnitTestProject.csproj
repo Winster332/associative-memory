@@ -50,15 +50,17 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Neural\TestNet.cs" />
     <Compile Include="Neural\TestNeuron.cs" />
     <Compile Include="Neural\TestSynapse.cs" />
     <Compile Include="Neural\TestVec3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Neural\TestAnalysNet.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FuckingNeuralNetwork\FuckingNeuralNetwork.csproj">
+    <ProjectReference Include="..\FuckingNeuralNetwork\Associative-Memory.csproj">
       <Project>{7911c8b8-a0ee-427f-9468-63f3e0270928}</Project>
-      <Name>FuckingNeuralNetwork</Name>
+      <Name>Associative-Memory</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

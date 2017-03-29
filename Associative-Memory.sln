@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuckingNeuralNetwork", "FuckingNeuralNetwork\FuckingNeuralNetwork.csproj", "{7911C8B8-A0EE-427F-9468-63F3E0270928}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Associative-Memory", "FuckingNeuralNetwork\Associative-Memory.csproj", "{7911C8B8-A0EE-427F-9468-63F3E0270928}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject", "UnitTestProject\UnitTestProject.csproj", "{081E071B-5E6D-4692-9A99-4C6E3AE2EBF4}"
 EndProject

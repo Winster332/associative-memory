@@ -22,12 +22,12 @@ namespace UnitTestProject.Neural
 			neurons.Add(new Neuron<string>(new Vec3(10, 10, 0), "No Hello", errorInput));
 		}
 		[TestMethod]
-		public void TestActive()
+		public void Active()
 		{
 			Assert.IsTrue(neurons[0].Active(input).Power < neurons[1].Active(input).Power);
 		}
 		[TestMethod]
-		public void TestTrain()
+		public void Train()
 		{
 			for (var i = 0; i < 20; i++)
 			{
