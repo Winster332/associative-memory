@@ -44,6 +44,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -58,6 +59,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Data\TestDataBase.cs" />
     <Compile Include="Neural\TestNet.cs" />
     <Compile Include="Neural\TestNeuron.cs" />
     <Compile Include="Neural\TestSynapse.cs" />
@@ -69,6 +71,14 @@
     <ProjectReference Include="..\FuckingNeuralNetwork\Associative-Memory.csproj">
       <Project>{7911c8b8-a0ee-427f-9468-63f3e0270928}</Project>
       <Name>Associative-Memory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NeuralDatabase\NeuralDatabase.sqlproj">
+      <Project>{dcfb4ccb-56aa-4517-b59e-c4e366e1e8ab}</Project>
+      <Name>NeuralDatabase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VisionBrain\VisionBrain.csproj">
+      <Project>{5cd06018-de14-4be6-879b-6fde7955eb82}</Project>
+      <Name>VisionBrain</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
