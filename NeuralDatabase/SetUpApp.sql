@@ -1,0 +1,4 @@
+﻿CREATE TABLE [dbo].[SetUpApp]
+(
+	[Id] INT NOT NULL PRIMARY KEY
+)

@@ -62,5 +62,26 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Neuron.sql" />
+    <Build Include="Synapse.sql" />
+    <Build Include="SetUpApp.sql" />
+    <Build Include="ViewDataBase.sql" />
+    <Build Include="insertNeuron.sql" />
+    <Build Include="deleteNeuron.sql" />
+    <Build Include="updateNeuron.sql" />
+    <Build Include="insertSynapse.sql" />
+    <Build Include="deleteSynapse.sql" />
+    <Build Include="updateSynapse.sql" />
+    <Build Include="updateAppSettings.sql" />
+    <Build Include="Net.sql" />
+    <Build Include="Projects.sql" />
+    <Build Include="getAllNeuronsFromProject.sql" />
+    <Build Include="getAllSynapsesFromProject.sql" />
+    <Build Include="getProjects.sql" />
+    <Build Include="insertProject.sql" />
+    <Build Include="updateProject.sql" />
+    <Build Include="ViewNeuralDataBase.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="NeuralDatabase.refactorlog" />
   </ItemGroup>
 </Project>

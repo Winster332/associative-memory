@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="b0720ace-7324-498b-b1be-5560177227a9" ChangeDateTime="03/29/2017 04:40:03">
+    <Property Name="ElementName" Value="[dbo].[Neuron].[test]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Neuron]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Weight" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0b724727-0a25-4efd-9cef-373d4bde9df0" ChangeDateTime="03/29/2017 04:42:53">
+    <Property Name="ElementName" Value="[dbo].[Synapse].[From]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Synapse]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FromId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="cef79dfb-4914-4b66-b498-298b300c5621" ChangeDateTime="03/29/2017 04:43:00">
+    <Property Name="ElementName" Value="[dbo].[Synapse].[To]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Synapse]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ToId" />
+  </Operation>
+</Operations>
