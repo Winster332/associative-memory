@@ -5,7 +5,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VisionBrain"
-TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+		xmlns:ui="clr-namespace:VisionBrain.UI"
+		TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
@@ -16,6 +17,52 @@ TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 		Style="{StaticResource MaterialWindowDark}"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="71"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+
+        <ui:TopBar x:Name="topBar" Grid.Row="0"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Canvas x:Name="canvas" Grid.Column="0">
+                <ui:LayoutProjects />
+                <ui:LeftBarContent x:Name="leftPanel" Grid.Column="0" Margin="-200, 0, 0, 0"/>
+            </Canvas>
+
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <materialDesign:Card Padding="35" Margin="5" Grid.Column="0" Grid.Row="0">
+                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">One card</TextBlock>
+                </materialDesign:Card>
+                <materialDesign:Card Padding="35" Margin="5" Grid.Column="1" Grid.Row="0">
+                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Two card</TextBlock>
+                </materialDesign:Card>
+                <materialDesign:Card Padding="35" Margin="5" Grid.Column="0" Grid.Row="1">
+                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Three card</TextBlock>
+                </materialDesign:Card>
+                <materialDesign:Card Padding="35" Margin="5" Grid.Column="1" Grid.Row="1">
+                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Four card</TextBlock>
+                </materialDesign:Card>
+            </Grid>
+        </Grid>
+
+        <TextBlock Grid.Row="2" Padding="100, 3" Background="#FF007ACC">
+			Тут будет строка состояний
+        </TextBlock>
     </Grid>
 </Window>

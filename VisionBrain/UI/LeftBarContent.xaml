@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="VisionBrain.UI.LeftBarContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VisionBrain.UI"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="200" Background="#333">
+    <UserControl.Effect>
+        <DropShadowEffect Opacity="0.5" Direction="355"/>
+    </UserControl.Effect>
+    <Grid>
+        <StackPanel>
+            <ListBox Name="listBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200">
+                <ListBoxItem Content="Войти" MouseLeftButtonUp="ListBoxItem_MouseLeftButtonUp"></ListBoxItem>
+                <ListBoxItem Content="Регистрация"></ListBoxItem>
+
+                <ListBoxItem Content="Анализ кода" IsEnabled="False"></ListBoxItem>
+            <ListBoxItem Content="Построить граф" IsEnabled="False"></ListBoxItem>
+            <ListBoxItem Content="Построить UML диаграмму" IsEnabled="False"></ListBoxItem>
+            <ListBoxItem Content="Скомпилировать" IsEnabled="False"></ListBoxItem>
+            <ListBoxItem Content="Запустить" IsEnabled="False"></ListBoxItem>
+            <ListBoxItem Content="Настройки профиля" IsEnabled="False"></ListBoxItem>
+            <ListBoxItem Content="Настройки проекта" IsEnabled="False"></ListBoxItem>
+            <ListBoxItem Content="Настройки приложения"></ListBoxItem>
+            <ListBoxItem Content="Закрыть проект" IsEnabled="False"></ListBoxItem>
+            <ListBoxItem Content="Печать" IsEnabled="False"></ListBoxItem>
+            <ListBoxItem Content="О нас"></ListBoxItem>
+            <ListBoxItem Content="Справка"></ListBoxItem>
+            <ListBoxItem Content="Связаться с нами"></ListBoxItem>
+            <ListBoxItem Content="Выход"></ListBoxItem>
+        </ListBox>
+        </StackPanel>
+    </Grid>
+</UserControl>
