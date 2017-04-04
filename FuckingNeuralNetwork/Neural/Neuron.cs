@@ -8,19 +8,25 @@ namespace FuckingNeuralNetwork.Neural
 {
 	public class Neuron<NData> : Vec3
 	{
-		public List<Synapse<NData>> Synapses { get; set; } = new List<Synapse<NData>>();
+		public virtual List<Synapse<NData>> Synapses { get; set; } = new List<Synapse<NData>>();
 		public List<float> Weight { get; set; } = new List<float>();
 		public float Power { get; set; } = 0;
 		public NData Data { get; set; }
-		
+		public float Radius { get; set; }
+		public int Id { get; set; }
+
 		public Neuron(Vec3 position, NData data, List<float> weight) : base(position)
 		{
+			this.Id = -1;
 			this.Data = data;
 			this.Weight = weight;
+			this.Radius = 1;
 		}
 
-		public Neuron(Vec3 position, NData data, int lengthWeight, float valueWeight) : base(position)
+		public Neuron(Vec3 position, int id, float radius, NData data, int lengthWeight, float valueWeight) : base(position)
 		{
+			this.Radius = radius;
+			this.Id = id;
 			this.Data = data;
 			for (var i = 0; i < lengthWeight; i++)
 				Weight.Add(valueWeight);

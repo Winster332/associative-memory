@@ -8,6 +8,7 @@ namespace FuckingNeuralNetwork.Neural
 {
 	public class Synapse<NData>
 	{
+		public int Id { get; set; }
 		public Neuron<NData> OutputNeuron { get; set; }
 		public Neuron<NData> InputNeuron { get; set; }
 		public enum TYPE_IO { Input, Output, None }
@@ -18,9 +19,11 @@ namespace FuckingNeuralNetwork.Neural
 		{
 			TypeIO = TYPE_IO.None;
 			IsActive = false;
+			Id = -1;
 		}
-		public Synapse(Neuron<NData> output, Neuron<NData> input, TYPE_IO type, float threshold)
+		public Synapse(int id, Neuron<NData> output, Neuron<NData> input, TYPE_IO type, float threshold)
 		{
+			this.Id = id;
 			this.InputNeuron = input;
 			this.OutputNeuron = output;
 			this.TypeIO = type;

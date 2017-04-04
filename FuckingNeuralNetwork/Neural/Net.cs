@@ -8,6 +8,8 @@ namespace FuckingNeuralNetwork.Neural
 {
 	public class Net<NData> : AnalysNet
 	{
+		public int Id { get; set; }
+		public String Name { get; set; }
 		public List<Neuron<NData>> Neurons { get; set; }
 		public Net()
 		{
@@ -21,7 +23,7 @@ namespace FuckingNeuralNetwork.Neural
 		}
 		public Synapse<NData> AddSynapse(Neuron<NData> from, Neuron<NData> to, Synapse<NData>.TYPE_IO type, float threshold)
 		{
-			var synapse = new Synapse<NData>(from, to, type, threshold);
+			var synapse = new Synapse<NData>(-1, from, to, type, threshold);
 			from.Synapses.Add(synapse);
 			return synapse;
 		}

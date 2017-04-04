@@ -80,6 +80,12 @@
     <Build Include="insertProject.sql" />
     <Build Include="updateProject.sql" />
     <Build Include="ViewNeuralDataBase.sql" />
+    <Build Include="insertNet.sql" />
+    <Build Include="getNet.sql" />
+    <Build Include="updateNet.sql" />
+    <Build Include="insertAppSettings.sql" />
+    <Build Include="deleteAppSettings.sql" />
+    <Build Include="getNeuron.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="NeuralDatabase.refactorlog" />

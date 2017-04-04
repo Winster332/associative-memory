@@ -31,5 +31,10 @@ namespace UnitTestProject.Data
 			}
 			Assert.IsTrue(isConnected);
 		}
+		[TestMethod]
+		public void InsertNeuron()
+		{
+			Console.WriteLine(Neuron.Create(new DataColor(10, 20, 30, 10), "data", 12, new List<Synapse>(), new List<float>() { 12,32,12,4 }, new FuckingNeuralNetwork.Neural.Vec3(10, 10, -3)));
+		}
 	}
 }

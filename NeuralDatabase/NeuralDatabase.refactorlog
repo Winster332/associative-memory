@@ -21,4 +21,18 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="ToId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="7f2110ad-f9d6-476f-bc84-184fb7e93870" ChangeDateTime="03/29/2017 19:21:20">
+    <Property Name="ElementName" Value="[dbo].[Net].[SynapseId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Net]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SynapsesId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="192dd583-bb54-4179-8677-51a5eb5a4515" ChangeDateTime="03/29/2017 20:39:24">
+    <Property Name="ElementName" Value="[dbo].[Neuron].[Weight]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Neuron]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Weights" />
+  </Operation>
 </Operations>
