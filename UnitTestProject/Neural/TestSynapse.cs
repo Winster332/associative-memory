@@ -22,7 +22,7 @@ namespace UnitTestProject.Neural
 			neuronOutput = new Neuron<string>(new Vec3(-10, 0, 0), "two", new List<float> { 0.5f, 0.8f, -0.2f, -0.7f, 0.3f });
 			neuronOutput.Active(new List<float> { 0.1f, -0.3f, 0.8f, 0.3f, -0.8f });
 			neuronInput.Active(new List<float> { 0.5f, 0.8f, -0.2f, -0.7f, 0.3f });
-			synapse = new Synapse<string>(neuronOutput, neuronInput, Synapse<string>.TYPE_IO.Input, 0f);
+			synapse = new Synapse<string>(-1, neuronOutput, neuronInput, Synapse<string>.TYPE_IO.Input, 0f);
 		}
 		[TestMethod]
 		public void Send()

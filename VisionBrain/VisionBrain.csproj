@@ -65,9 +65,11 @@
     </ApplicationDefinition>
     <Compile Include="Data\DataBase.cs" />
     <Compile Include="Data\DataColor.cs" />
+    <Compile Include="Data\FactoryArray.cs" />
     <Compile Include="Data\IObjectDataBase.cs" />
     <Compile Include="Data\Net.cs" />
     <Compile Include="Data\Neuron.cs" />
+    <Compile Include="Data\PoolConnection.cs" />
     <Compile Include="Data\Project.cs" />
     <Compile Include="Data\SetUpApp.cs" />
     <Compile Include="Data\Synapse.cs" />
@@ -83,7 +85,6 @@
     <Compile Include="UI\TopBar.xaml.cs">
       <DependentUpon>TopBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Util\FactorySerializer.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

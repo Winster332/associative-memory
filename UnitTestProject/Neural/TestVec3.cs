@@ -20,9 +20,12 @@ namespace UnitTestProject.Neural
 		[TestMethod]
 		public void Plus()
 		{
-			Vec3 v = new Vec3(10, 5, 25);
-			Vec3 result = v + vec;
-			Assert.AreEqual(new Vec3(20, 20, 20), result);
+			Logger.Run(() =>
+			{
+				Vec3 v = new Vec3(10, 5, 25);
+				Vec3 result = v + vec;
+				Assert.AreEqual(new Vec3(20, 20, 20), result);
+			});
 		}
 		[TestMethod]
 		public void PlusScalar()

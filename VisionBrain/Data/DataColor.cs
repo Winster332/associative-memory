@@ -26,5 +26,9 @@ namespace VisionBrain.Data
 			this.G = g;
 			this.B = b;
 		}
+		public override string ToString()
+		{
+			return "[" + A + "," + R + "," + G + "," + B + "]";
+		}
 	}
 }
