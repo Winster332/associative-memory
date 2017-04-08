@@ -11,7 +11,7 @@ namespace FuckingNeuralNetwork.Neural
 		public int Id { get; set; }
 		public Neuron<NData> OutputNeuron { get; set; }
 		public Neuron<NData> InputNeuron { get; set; }
-		public enum TYPE_IO { Input, Output, None }
+		public enum TYPE_IO { Input = 1, Output = 2, None = 0 }
 		public TYPE_IO TypeIO { get; set; }
 		public bool IsActive { get; set; }
 		public float Threshold { get; set; }

@@ -71,7 +71,6 @@
     <Compile Include="Data\Neuron.cs" />
     <Compile Include="Data\PoolConnection.cs" />
     <Compile Include="Data\Project.cs" />
-    <Compile Include="Data\SetUpApp.cs" />
     <Compile Include="Data\Synapse.cs" />
     <Compile Include="UI\LayoutProjects.xaml.cs">
       <DependentUpon>LayoutProjects.xaml</DependentUpon>

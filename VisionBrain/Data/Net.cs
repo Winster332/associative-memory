@@ -11,8 +11,7 @@ namespace VisionBrain.Data
 		
 		public Net() : base()
 		{
-			Id = -1;
-			Name = "NULL";
+		
 		}
 		public Net Delete()
 		{
@@ -20,13 +19,18 @@ namespace VisionBrain.Data
 			return this;
 		}
 
-		public Net Get(int id)
+		public Net Get()
 		{
 			//var n = DataBase.Instance.GetNet(id);
 			//this.Id = n.Id;
 			//this.Name = n.Name;
 			//this.Neurons = n.Neurons;
 			return this;
+		}
+
+		public static Net Load(int id)
+		{
+			return null;
 		}
 
 		public Net Save()

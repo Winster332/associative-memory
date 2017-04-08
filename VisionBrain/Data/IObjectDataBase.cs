@@ -10,6 +10,6 @@ namespace VisionBrain.Data
 	{
 		T Save();
 		T Delete();
-		T Get(int id);
+		T Get();
 	}
 }

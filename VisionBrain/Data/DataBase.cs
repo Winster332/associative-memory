@@ -36,6 +36,7 @@ namespace VisionBrain.Data
 		{
 			Pool.Close(Pool.LastConnection);
 		}
+		#region Neuron
 		public int InsertNeuron(Neuron neuron)
 		{
 			var newId = -1;
@@ -62,115 +63,230 @@ namespace VisionBrain.Data
 
 			return newId;
 		}
-		//	public void UpdateNeuron(Neuron neuron)
-		//	{
-		//		var cmd = Connection.CreateCommand();
-		//		cmd.CommandType = CommandType.StoredProcedure;
-		//		cmd.CommandText = "[NeuralDatabase].[dbo].[updateNeuron]";
-		//		cmd.Parameters.Add("@weights", SqlDbType.Text).Value = neuron.Weight.ToArray().ToString();
-		//		cmd.Parameters.Add("@neuronData", SqlDbType.Text).Value = neuron.Data;
-		//		cmd.Parameters.Add("@radius", SqlDbType.Float).Value = neuron.Radius;
-		//		cmd.Parameters.Add("@color", SqlDbType.Text).Value = neuron.Color.ToString();
-		//		cmd.Parameters.Add("@x", SqlDbType.Float).Value = neuron.X;
-		//		cmd.Parameters.Add("@y", SqlDbType.Float).Value = neuron.Y;
-		//		cmd.Parameters.Add("@z", SqlDbType.Float).Value = neuron.Z;
-		//		cmd.Parameters.Add("@synaoses", SqlDbType.Text).Value = neuron.Synapses.ToString();
+		public void UpdateNeuron(Neuron neuron)
+		{
+			Open();
 
-		//		Connection.Open();
-		//		var reader = cmd.ExecuteNonQuery();
-		//		Connection.Close();
-		//	}
-		//	public void DeleteNeuron(Neuron neuron)
-		//	{
-		//		var cmd = Connection.CreateCommand();
-		//		cmd.CommandType = CommandType.StoredProcedure;
-		//		cmd.CommandText = "[NeuralDatabase].[dbo].[deleteNeuron]";
-		//		cmd.Parameters.Add("@Id", SqlDbType.Int).Value = neuron.Id;
+            var cmd = Pool.LastConnection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[updateNeuron]";
+			cmd.Parameters.Add("@Id", SqlDbType.Int).Value = neuron.Id;
+			cmd.Parameters.Add("@weights", SqlDbType.Text).Value = neuron.Weight.ToArray().ToString();
+			cmd.Parameters.Add("@neuronData", SqlDbType.Text).Value = neuron.Data;
+			cmd.Parameters.Add("@radius", SqlDbType.Float).Value = neuron.Radius;
+			cmd.Parameters.Add("@color", SqlDbType.Text).Value = neuron.Color.ToString();
+			cmd.Parameters.Add("@x", SqlDbType.Float).Value = neuron.X;
+			cmd.Parameters.Add("@y", SqlDbType.Float).Value = neuron.Y;
+			cmd.Parameters.Add("@z", SqlDbType.Float).Value = neuron.Z;
+			cmd.Parameters.Add("@synaoses", SqlDbType.Text).Value = neuron.Synapses.ToString();
+			
+			var reader = cmd.ExecuteNonQuery();
+			CloseLast();
+		}
+		public void DeleteNeuron(Neuron neuron)
+		{
+			Open();
+			var cmd = Pool.LastConnection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[deleteNeuron]";
+			cmd.Parameters.Add("@Id", SqlDbType.Int).Value = neuron.Id;
+			cmd.ExecuteNonQuery();
+			CloseLast();
+		}
+		public Neuron GetNeuron(int id)
+		{
+			Open();
+			var n = new Neuron(new FuckingNeuralNetwork.Neural.Vec3(), "", null);
+			var cmd = Pool.LastConnection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[getNeuron]";
+			cmd.Parameters.Add("@findId", SqlDbType.Int).Value = id;
 
-		//		Connection.Open();
-		//		var reader = cmd.ExecuteNonQuery();
-		//		Connection.Close();
-		//	}
-		//	public Neuron GetNeuron(int id)
-		//	{
-		//		var n = new Neuron(null, "", null);
-		//		var cmd = Connection.CreateCommand();
-		//		cmd.CommandType = CommandType.StoredProcedure;
-		//		cmd.CommandText = "[NeuralDatabase].[dbo].[getNeuron]";
-		//		cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+			var reader = cmd.ExecuteReader();
 
-		//		Connection.Open();
-		//		var reader = cmd.ExecuteReader();
-		//		while (reader.Read())
-		//		{
-		//			// TODO: getter
-		//		}
-		//		Connection.Close();
-		//		return n;
-		//	}
-		//	public int InsertSynapse(Synapse synapse)
-		//	{
-		//		var newId = -1;
-		//		var cmd = Connection.CreateCommand();
-		//		cmd.CommandType = CommandType.StoredProcedure;
-		//		cmd.CommandText = "[NeuralDatabase].[dbo].[synapseNeuron]";
-		//		cmd.Parameters.Add("@fromId", SqlDbType.Text).Value = synapse.OutputNeuron.Id;
-		//		cmd.Parameters.Add("@toId", SqlDbType.Text).Value = synapse.InputNeuron.Id;
-		//		cmd.Parameters.Add("@type", SqlDbType.Float).Value = synapse.TypeIO;
-		//		cmd.Parameters.Add("@Threshold", SqlDbType.Text).Value = synapse.Threshold;
+			while (reader.Read())
+			{
+				var aColor = FactoryArray.GetFloatArray(reader.GetString(4));
+                n.Id = reader.GetInt32(0);
+				n.Weight = FactoryArray.GetFloatArray(reader.GetString(1));
+				n.Data = reader.GetString(2);
+				n.Radius = (float)reader.GetDouble(3);
+				n.Color = new DataColor((int)aColor[0], (int)aColor[1], (int)aColor[2], (int)aColor[3]);
+				n.X = (float)reader.GetDouble(5);
+				n.Y = (float)reader.GetDouble(6);
+				n.Z = (float)reader.GetDouble(7);
+				n.Synapses = FactoryArray.GetSynapses(reader.GetString(8));
+			}
+			CloseLast();
+			return n;
+		}
+		#endregion
+		#region Synapse
+		public int InsertSynapse(Synapse synapse)
+		{
+			Open();
 
-		//		Connection.Open();
-		//		var reader = cmd.ExecuteReader();
-		//		while (reader.Read())
-		//		{
-		//			newId = reader.GetInt32(0);
-		//		}
-		//		Connection.Close();
+			var type = 0;
+			switch(synapse.TypeIO)
+			{
+				case FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.None: type = 0; break;
+				case FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.Input: type = 1; break;
+				case FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.Output: type = 2; break;
+			}
+			var newId = -1;
+			var cmd = Pool.LastConnection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[insertSynapse]";
+			cmd.Parameters.Add("@color", SqlDbType.Text).Value = synapse.Color.ToString();
+			cmd.Parameters.Add("@fromId", SqlDbType.Int).Value = synapse.OutputNeuron.Id;
+			cmd.Parameters.Add("@toId", SqlDbType.Int).Value = synapse.InputNeuron.Id;
+			cmd.Parameters.Add("@type", SqlDbType.Int).Value = type;
+			cmd.Parameters.Add("@Threshold", SqlDbType.Float).Value = synapse.Threshold;
 
-		//		return newId;
-		//	}
-		//	public void UpdateSynapse(Synapse synapse)
-		//	{
+			var reader = cmd.ExecuteReader();
+			while (reader.Read())
+			{
+				newId = reader.GetInt32(0);
+			}
 
-		//	}
-		//	public void DeleteSynapse(Synapse synapse)
-		//	{
+			CloseLast();
+			return newId;
+		}
+		public void UpdateSynapse(Synapse synapse)
+		{
+			Open();
+			var type = 0;
+			switch (synapse.TypeIO)
+			{
+				case FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.None: type = 0; break;
+				case FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.Input: type = 1; break;
+				case FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.Output: type = 2; break;
+			}
+			var cmd = Pool.LastConnection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[updateSynapse]";
+			cmd.Parameters.Add("@Id", SqlDbType.Int).Value = synapse.Id;
+			cmd.Parameters.Add("@color", SqlDbType.Text).Value = synapse.Color.ToString();
+			cmd.Parameters.Add("@fromId", SqlDbType.Int).Value = synapse.OutputNeuron.Id;
+			cmd.Parameters.Add("@toId", SqlDbType.Int).Value = synapse.InputNeuron.Id;
+			cmd.Parameters.Add("@type", SqlDbType.Int).Value = type;
+			cmd.Parameters.Add("@Threshold", SqlDbType.Float).Value = synapse.Threshold;
 
-		//	}
-		//	public Synapse GetSynapse(int id)
-		//	{
-		//		return null;
-		//	}
-		//	public int InsertNet(Net net)
-		//	{
-		//		var newId = -1;
-		//		var cmd = Connection.CreateCommand();
-		//		cmd.CommandType = CommandType.StoredProcedure;
-		//		cmd.CommandText = "[NeuralDatabase].[dbo].[inserNet]";
-		//		cmd.Parameters.Add("@id", SqlDbType.Int).Value = net.Id;
-		//		cmd.Parameters.Add("@name", SqlDbType.Text).Value = net.Name;
-		//		cmd.Parameters.Add("@radius", SqlDbType.Float).Value = net.Neurons;
+			cmd.ExecuteNonQuery();
 
-		//		Connection.Open();
-		//		var reader = cmd.ExecuteReader();
-		//		while (reader.Read())
-		//		{
-		//			newId = reader.GetInt32(0);
-		//		}
-		//		Connection.Close();
+			CloseLast();
+		}
+		public void DeleteSynapse(Synapse synapse)
+		{
+			Open();
+			var cmd = Pool.LastConnection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[deleteSynapse]";
+			cmd.Parameters.Add("@Id", SqlDbType.Int).Value = synapse.Id;
+			cmd.ExecuteNonQuery();
+			CloseLast();
+		}
+		public Synapse GetSynapse(int id)
+		{
+			var connection = Pool.Open(stringConnection);
+			var n = new Synapse();
+			var cmd = connection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[getSynapse]";
+			cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;
 
-		//		return newId;
-		//	}
-		//	public void DeleteNet(Net net)
-		//	{
-		//	}
-		//	public void UpdateNet(Net net)
-		//	{
-		//	}
-		//	public Net GetNet(int id)
-		//	{
-		//		return null;
-		//	}
+			var reader = cmd.ExecuteReader();
+
+			while (reader.Read())
+			{
+				var aColor = FactoryArray.GetFloatArray(reader.GetString(5));
+				n.Id = reader.GetInt32(0);
+				n.Color = new DataColor((int)aColor[0], (int)aColor[1], (int)aColor[2], (int)aColor[3]);
+				n.InputNeuron = Neuron.Load(reader.GetInt32(2));
+				n.OutputNeuron = Neuron.Load(reader.GetInt32(1));
+
+				switch(reader.GetInt32(3))
+				{
+					case 0: n.TypeIO = FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.None; break;
+					case 1: n.TypeIO = FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.Input; break;
+					case 2: n.TypeIO = FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.Output; break;
+				}
+
+				n.Threshold = (float)reader.GetDouble(4);
+				n.Color = new DataColor((int)aColor[0], (int)aColor[1], (int)aColor[2], (int)aColor[3]);
+			}
+			Pool.Close(Pool.Connections[Pool.Connections.Count-1]);
+			Pool.Connections.Remove(Pool.Connections[Pool.Connections.Count - 1]);
+
+			return n;
+		}
+		#endregion
+		#region Net
+		public int InsertNet(Net net)
+		{
+			Open();
+			var newId = -1;
+			var cmd = Pool.LastConnection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[insertNet]";
+			cmd.Parameters.Add("@id", SqlDbType.Int).Value = net.Id;
+			cmd.Parameters.Add("@name", SqlDbType.Text).Value = net.Name;
+			cmd.Parameters.Add("@neurons", SqlDbType.Text).Value = FactoryArray.GetNeurons(net.Neurons);
+
+			var reader = cmd.ExecuteReader();
+			while (reader.Read())
+			{
+				newId = reader.GetInt32(0);
+			}
+
+			CloseLast();
+			return newId;
+		}
+		public void DeleteNet(Net net)
+		{
+			Open();
+			var cmd = Pool.LastConnection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[deleteNet]";
+			cmd.Parameters.Add("@Id", SqlDbType.Int).Value = net.Id;
+			cmd.ExecuteNonQuery();
+			CloseLast();
+		}
+		public void UpdateNet(Net net)
+		{
+			Open();
+			var cmd = Pool.LastConnection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[updateNet]";
+			cmd.Parameters.Add("@id", SqlDbType.Int).Value = net.Id;
+			cmd.Parameters.Add("@name", SqlDbType.Text).Value = net.Name;
+			cmd.Parameters.Add("@neurons", SqlDbType.Text).Value = FactoryArray.GetNeurons(net.Neurons);
+
+			cmd.ExecuteNonQuery();
+
+			CloseLast();
+		}
+		public Net GetNet(int id)
+		{
+			Open();
+			Net net = new Net();
+			var cmd = Pool.LastConnection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[getNet]";
+			cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+			var reader = cmd.ExecuteReader();
+			while (reader.Read())
+			{
+				net.Id = reader.GetInt32(0);
+				net.Name = reader.GetString(2);
+				net.Neurons = FactoryArray.GetNeurons(reader.GetString(1));
+			}
+
+			CloseLast();
+			return net;
+		}
+		#endregion
 		//	public int InsertProject(Project project)
 		//	{
 		//		var newId = -1;
@@ -202,22 +318,6 @@ namespace VisionBrain.Data
 		//		return null;
 		//	}
 		//	public Project[] GetAllProjects()
-		//	{
-		//		return null;
-		//	}
-		//	public void InsertSetUpApp()
-		//	{
-
-		//	}
-		//	public void UpdateSetUpApp()
-		//	{
-
-		//	}
-		//	public void DeleteSetUp()
-		//	{
-
-		//	}
-		//	public SetUpApp GetSetUp(int id)
 		//	{
 		//		return null;
 		//	}

@@ -44,5 +44,25 @@ namespace UnitTestProject.Data
 				Console.WriteLine(Neuron.Create(new DataColor(10, 20, 30, 10), "data", 12, new List<Synapse>(), new List<float>() { 12, 32, 12, 4 }, new FuckingNeuralNetwork.Neural.Vec3(10, 10, -3)));
 			});
 		}
+		[TestMethod]
+		public void GetNeuron()
+		{
+			Logger.Run(() =>
+			{
+				int id = 2003;
+				Neuron n = Neuron.Load(id);
+				Console.WriteLine(n.ToString());
+			});
+		}
+		[TestMethod]
+		public void DeleteNeuron()
+		{
+			//Logger.Run(() => 
+			//{
+				Neuron neuron = Neuron.Load(2003);
+
+				neuron.Delete();
+			//});
+		}
 	}
 }

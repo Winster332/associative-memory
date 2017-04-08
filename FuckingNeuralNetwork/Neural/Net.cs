@@ -14,6 +14,8 @@ namespace FuckingNeuralNetwork.Neural
 		public Net()
 		{
 			Neurons = new List<Neuron<NData>>();
+			Id = -1;
+			Name = "NULL";
 		}
 		public Neuron<NData> AddNeuron(NData data, List<float> input)
 		{

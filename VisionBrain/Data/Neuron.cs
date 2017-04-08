@@ -26,28 +26,36 @@ namespace VisionBrain.Data
 		}
 		public Neuron Save()
 		{
-			//DataBase.Instance.UpdateNeuron(this);
+			DataBase.Instance.UpdateNeuron(this);
 			return this;
 		}
 		public Neuron Delete()
 		{
-			//DataBase.Instance.DeleteNeuron(this);
+			DataBase.Instance.DeleteNeuron(this);
 			return this;
 		}
-		public Neuron Get(int id)
+		public Neuron Get()
 		{
-			//var n = DataBase.Instance.GetNeuron(id);
-			//this.Color = n.Color;
-			//this.Data = n.Data;
-			//this.Id = n.Id;
-			//this.Power = n.Power;
-			//this.Radius = n.Radius;
-			//this.Synapses = n.Synapses;
-			//this.Weight = n.Weight;
-			//this.X = n.X;
-			//this.Y = n.Y;
-			//this.Z = n.Z;
+			var n = DataBase.Instance.GetNeuron(this.Id);
+			this.Color = n.Color;
+			this.Data = n.Data;
+			this.Id = n.Id;
+			this.Power = n.Power;
+			this.Radius = n.Radius;
+			this.Synapses = n.Synapses;
+			this.Weight = n.Weight;
+			this.X = n.X;
+			this.Y = n.Y;
+			this.Z = n.Z;
 			return this;
+		}
+		public static Neuron Load(int id)
+		{
+			var n = DataBase.Instance.GetNeuron(id);
+
+			if (n.Id == -1)
+				return null;
+			else return n;
 		}
 		public static int Create(DataColor color, String data, float radius, List<Synapse> synapses, List<float> weight, Vec3 v)
 		{
