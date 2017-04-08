@@ -25,7 +25,7 @@ namespace VisionBrain.Data
 			{
 				String res = "[";
 				list.ForEach(v => res += v.Id + ",");
-				res = res.Substring(0, res.Length - 2) + "]";
+				res = res.Substring(0, res.Length - 1) + "]";
 				return res;
 			} else {
 				return "[]";
@@ -37,7 +37,7 @@ namespace VisionBrain.Data
 			{
 				String res = "[";
 				list.ForEach(v => res += v.Id + ",");
-				res = res.Substring(0, res.Length - 2) + "]";
+				res = res.Substring(0, res.Length - 1) + "]";
 				return res;
 			} else {
 				return "[]";
@@ -47,7 +47,7 @@ namespace VisionBrain.Data
 		{
 			if (text != "[]")
 			{
-				text = text.Substring(1, text.Length);
+				text = text.Substring(1, text.Length-1);
 				List<FuckingNeuralNetwork.Neural.Synapse<String>> res =
 					new List<FuckingNeuralNetwork.Neural.Synapse<String>>();
 				String timeoutSymbol = "";
@@ -67,31 +67,48 @@ namespace VisionBrain.Data
 		}
 		public static List<float> GetFloatArray(String text)
 		{
-			text = text.Substring(1, text.Length-1);
 			List<float> res = new List<float>();
-			String timeoutSymbol = "";
-			for (int i = 0; i < text.Length; i++)
+
+			if (!text.Equals("[]"))
 			{
-				if (text[i].ToString() != "," && text[i].ToString() != "]")
-					timeoutSymbol += text[i];
-				else
+				text = text.Replace("[", "");
+				String timeoutSymbol = "";
+				for (int i = 0; i < text.Length; i++)
 				{
-					float w = float.Parse(timeoutSymbol);
-					res.Add(w);
-					timeoutSymbol = "";
+					if (text[i].ToString() != "," && text[i].ToString() != "]" && text[i].ToString() != "")
+						timeoutSymbol += text[i];
+					else
+					{
+						float w = float.Parse(timeoutSymbol);
+						res.Add(w);
+						timeoutSymbol = "";
+					}
 				}
 			}
 			return res;
 		}
 
-		public static String GetNeurons(List<Neuron<string>> neurons)
+		public static List<Neuron<string>> GetNeurons(string text)
 		{
-			return "";
-		}
+			List<Neuron<String>> neurons = new List<Neuron<string>>();
 
-		public static List<FuckingNeuralNetwork.Neural.Neuron<String>> GetNeurons(String text)
-		{
-			return null;
+			if (text != "[]")
+			{
+				text = text.Replace("[", "");
+				String timeoutSymbol = "";
+				for (int i = 0; i < text.Length; i++)
+				{
+					if (text[i].ToString() != "," && text[i].ToString() != "]")
+						timeoutSymbol += text[i];
+					else
+					{
+						int id = int.Parse(timeoutSymbol);
+						neurons.Add(Neuron.Load(id));
+						timeoutSymbol = "";
+					}
+				}
+			}
+			return neurons;
 		}
 	}
 }

@@ -64,7 +64,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\DataBase.cs" />
-    <Compile Include="Data\DataColor.cs" />
     <Compile Include="Data\FactoryArray.cs" />
     <Compile Include="Data\IObjectDataBase.cs" />
     <Compile Include="Data\Net.cs" />

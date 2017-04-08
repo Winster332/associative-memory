@@ -14,6 +14,7 @@ namespace FuckingNeuralNetwork.Neural
 		public NData Data { get; set; }
 		public float Radius { get; set; }
 		public int Id { get; set; }
+		public DataColor Color { get; set; }
 
 		public Neuron(Vec3 position, NData data, List<float> weight) : base(position)
 		{
@@ -21,6 +22,15 @@ namespace FuckingNeuralNetwork.Neural
 			this.Data = data;
 			this.Weight = weight;
 			this.Radius = 1;
+			this.Color = new DataColor(255, 0, 0, 255);
+		}
+
+		public Neuron(int id, float radius, Vec3 position, String data, List<float> weight) : base(position)
+		{
+			this.Radius = radius;
+			Id = id;
+			Color = new DataColor(255, 0, 0, 255);
+			Radius = 1;
 		}
 
 		public Neuron(Vec3 position, int id, float radius, NData data, int lengthWeight, float valueWeight) : base(position)

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VisionBrain.Data;
+using DataColor = FuckingNeuralNetwork.Neural.DataColor;
 
 namespace UnitTestProject.Data
 {
@@ -36,33 +37,208 @@ namespace UnitTestProject.Data
 			});
 			Assert.IsTrue(isConnected);
 		}
+		#region neuron
 		[TestMethod]
 		public void InsertNeuron()
 		{
+			int id = -1;
 			Logger.Run(() =>
 			{
-				Console.WriteLine(Neuron.Create(new DataColor(10, 20, 30, 10), "data", 12, new List<Synapse>(), new List<float>() { 12, 32, 12, 4 }, new FuckingNeuralNetwork.Neural.Vec3(10, 10, -3)));
+				id = Neuron.Create(new DataColor(10, 20, 30, 10), "data", 12, new List<Synapse>(), new List<float>() { 12, 32, 12, 4 }, new FuckingNeuralNetwork.Neural.Vec3(10, 10, -3));
+                Console.WriteLine(id);
 			});
+
+			Assert.AreNotEqual(-1, id);
+
+			if (id != -1)
+				Neuron.Load(id).Delete();
 		}
 		[TestMethod]
 		public void GetNeuron()
 		{
+			var id = Neuron.Create(new DataColor(10, 20, 30, 10), "data", 12, new List<Synapse>(), new List<float>() { 12, 32, 12, 4 }, new FuckingNeuralNetwork.Neural.Vec3(10, 10, -3));
+			Neuron n = null;
 			Logger.Run(() =>
 			{
-				int id = 2003;
-				Neuron n = Neuron.Load(id);
+				n = Neuron.Load(id);
 				Console.WriteLine(n.ToString());
 			});
+			Assert.AreEqual(id, n.Id);
+
+			if (n != null)
+				n.Delete();
 		}
 		[TestMethod]
 		public void DeleteNeuron()
 		{
-			//Logger.Run(() => 
-			//{
-				Neuron neuron = Neuron.Load(2003);
-
+			var id = Neuron.Create(new DataColor(10, 20, 30, 10), "data", 12, new List<Synapse>(), new List<float>() { 12, 32, 12, 4 }, new FuckingNeuralNetwork.Neural.Vec3(10, 10, -3));
+			Neuron neuron = null;
+			Logger.Run(() =>
+			{
+				neuron = Neuron.Load(id);
 				neuron.Delete();
-			//});
+			});
+
+			Assert.IsNull(Neuron.Load(id));
 		}
+		[TestMethod]
+		public void UpdateNeuron()
+		{
+			var id = Neuron.Create(new DataColor(10, 20, 30, 10), "data", 12, new List<Synapse>(), new List<float>() { 12, 32, 12, 4 }, new FuckingNeuralNetwork.Neural.Vec3(10, 10, -3));
+			Neuron neuron = Neuron.Load(id);
+			neuron.Color = new DataColor(12, 32, 33, 4);
+			neuron.Data = "Test";
+			neuron.Radius = 1.23f;
+			neuron.X = 12;
+			neuron.Y = 33;
+			neuron.Z = 53;
+			neuron.Save();
+
+			Neuron newNeuron = Neuron.Load(neuron.Id);
+
+			Assert.IsNotNull(newNeuron);
+			Assert.AreEqual(neuron.Id, newNeuron.Id);
+			Assert.AreEqual(neuron.Color, newNeuron.Color);
+			Assert.AreEqual(neuron.Data, newNeuron.Data);
+			Assert.AreEqual(neuron.Radius, newNeuron.Radius);
+			Assert.AreEqual(neuron.X, newNeuron.X);
+			Assert.AreEqual(neuron.Y, newNeuron.Y);
+			Assert.AreEqual(neuron.Z, newNeuron.Z);
+
+			neuron.Delete();
+		}
+		#endregion
+		#region synapse
+		[TestMethod]
+		public void InsertSynapse()
+		{
+			int id = Synapse.Create(new Synapse());
+
+			Assert.AreNotEqual(-1, id);
+
+			var synapse = new Synapse();
+			synapse.Id = id;
+			synapse.Delete();
+		}
+		[TestMethod]
+		public void DeleteSynapse()
+		{
+			int id = Synapse.Create(new Synapse());
+			var synapse = new Synapse();
+			synapse.Id = id;
+			synapse.Delete();
+			var newSynapse = Synapse.Load(id);
+
+			Assert.IsNull(newSynapse);
+		}
+		[TestMethod]
+		public void GetSynapse()
+		{
+			int id = Synapse.Create(new Synapse());
+			var synapse = Synapse.Load(id);
+
+			Assert.AreEqual(id, synapse.Id);
+			synapse.Delete();
+		}
+		[TestMethod]
+		public void UpdateSynapse()
+		{
+			int id = Synapse.Create(new Synapse());
+			var synapse = Synapse.Load(id);
+			synapse.Color = new DataColor(1,2,3,4);
+			synapse.Threshold = 21;
+			synapse.TypeIO = FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.Output;
+			synapse.InputNeuron = new FuckingNeuralNetwork.Neural.Neuron<string>(new FuckingNeuralNetwork.Neural.Vec3(), 12, 122, "Fuck world", 93, 12);
+			synapse.OutputNeuron = new FuckingNeuralNetwork.Neural.Neuron<string>(new FuckingNeuralNetwork.Neural.Vec3(), 34, 21, "Fuck all", 121, 34);
+			synapse.Save();
+
+			var newSynapse = Synapse.Load(synapse.Id);
+
+			Assert.IsNotNull(newSynapse);
+			Assert.AreEqual(synapse.Id, newSynapse.Id);
+			Assert.AreEqual(synapse.Color, newSynapse.Color);
+			Assert.AreEqual(synapse.InputNeuron.Id, newSynapse.InputNeuron.Id);
+			Assert.AreEqual(synapse.OutputNeuron.Id, newSynapse.OutputNeuron.Id);
+			Assert.AreEqual(synapse.Threshold, newSynapse.Threshold);
+			Assert.AreEqual(synapse.TypeIO, newSynapse.TypeIO);
+
+			synapse.Delete();
+		}
+		#endregion
+		#region net
+		[TestMethod]
+		public void InsertNet()
+		{
+			int id = Net.Create(new Net("one net test", new List<FuckingNeuralNetwork.Neural.Neuron<String>>
+			{
+				new Neuron(21, 23, new FuckingNeuralNetwork.Neural.Vec3(12,39,43), "16", new List<float>()),
+				new Neuron(12, 312, new FuckingNeuralNetwork.Neural.Vec3(2,73,22), "14", new List<float>()),
+				new Neuron(25, 212, new FuckingNeuralNetwork.Neural.Vec3(32,53,12), "12", new List<float>())
+			}));
+			var net = Net.Load(id);
+
+			Assert.IsNotNull(net);
+			Assert.AreEqual(id, net.Id);
+
+			net.Delete();
+		}
+		[TestMethod]
+		public void DeleteNet()
+		{
+			int id = Net.Create(new Net("one net test", new List<FuckingNeuralNetwork.Neural.Neuron<String>>
+			{
+				new Neuron(21, 23, new FuckingNeuralNetwork.Neural.Vec3(12,39,43), "16", new List<float>()),
+				new Neuron(12, 312, new FuckingNeuralNetwork.Neural.Vec3(2,73,22), "14", new List<float>()),
+				new Neuron(25, 212, new FuckingNeuralNetwork.Neural.Vec3(32,53,12), "12", new List<float>())
+			}));
+			var net = Net.Load(id);
+
+			net.Delete();
+
+			var newNet = Net.Load(net.Id);
+			Assert.IsNull(newNet);
+		}
+		[TestMethod]
+		public void UpdateNet()
+		{
+			var net = new Net("one net test", new List<FuckingNeuralNetwork.Neural.Neuron<String>>
+			{
+				new Neuron(21, 23, new FuckingNeuralNetwork.Neural.Vec3(12,39,43), "16", new List<float>()),
+				new Neuron(12, 312, new FuckingNeuralNetwork.Neural.Vec3(2,73,22), "14", new List<float>()),
+				new Neuron(25, 212, new FuckingNeuralNetwork.Neural.Vec3(32,53,12), "12", new List<float>())
+			});
+			int id = Net.Create(net);
+			net.Name = "other test";
+			net.Save();
+
+			var netNew = Net.Load(id);
+
+			Assert.IsNotNull(net);
+			Assert.AreEqual(id, net.Id);
+			Assert.AreEqual(net.Name, netNew.Name);
+			Assert.AreEqual(net.Neurons.Count, netNew.Neurons.Count);
+
+			net.Delete();
+		}
+		[TestMethod]
+		public void GetNet()
+		{
+			var net = new Net("one net test", new List<FuckingNeuralNetwork.Neural.Neuron<String>>
+			{
+				new Neuron(21, 23, new FuckingNeuralNetwork.Neural.Vec3(12,39,43), "16", new List<float>()),
+				new Neuron(12, 312, new FuckingNeuralNetwork.Neural.Vec3(2,73,22), "14", new List<float>()),
+				new Neuron(25, 212, new FuckingNeuralNetwork.Neural.Vec3(32,53,12), "12", new List<float>())
+			});
+            int id = Net.Create(net);
+			var netNew = Net.Load(id);
+
+			Assert.IsNotNull(net);
+			Assert.AreEqual(id, net.Id);
+			Assert.AreEqual(net.Name, netNew.Name);
+			Assert.AreEqual(net.Neurons.Count, netNew.Neurons.Count);
+
+			net.Delete();
+		}
+		#endregion
 	}
 }

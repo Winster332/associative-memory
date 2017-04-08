@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VisionBrain.Data
+namespace FuckingNeuralNetwork.Neural
 {
 	public class DataColor
 	{

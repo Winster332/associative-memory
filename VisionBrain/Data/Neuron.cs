@@ -10,19 +10,12 @@ namespace VisionBrain.Data
 	public class Neuron : FuckingNeuralNetwork.Neural.Neuron<String>, IObjectDataBase<Neuron>
 	{
 		
-		public DataColor Color { get; set; }
-		
 		public Neuron(Vec3 position, String data, List<float> weight) : base(position, data, weight)
 		{
-			Color = new DataColor(255, 0, 0, 255);
 			
 		}
-		public Neuron(int id, float radius, Vec3 position, String data, List<float> weight) : base(position, data, weight)
+		public Neuron(int id, float radius, Vec3 position, String data, List<float> weight) : base(id, radius, position, data, weight)
 		{
-			this.Radius = radius;
-			Id = id;
-			Color = new DataColor(255, 0, 0, 255);
-			Radius = 1;
 		}
 		public Neuron Save()
 		{
@@ -57,7 +50,7 @@ namespace VisionBrain.Data
 				return null;
 			else return n;
 		}
-		public static int Create(DataColor color, String data, float radius, List<Synapse> synapses, List<float> weight, Vec3 v)
+		public static int Create(FuckingNeuralNetwork.Neural.DataColor color, String data, float radius, List<Synapse> synapses, List<float> weight, Vec3 v)
 		{
 			Neuron n = new Neuron(v, data, weight);
 			n.Radius = radius;

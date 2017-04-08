@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Neural\AnalysNet.cs" />
+    <Compile Include="Neural\DataColor.cs" />
     <Compile Include="Neural\Net.cs" />
     <Compile Include="Neural\Neuron.cs" />
     <Compile Include="Neural\Synapse.cs" />

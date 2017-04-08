@@ -8,10 +8,8 @@ namespace VisionBrain.Data
 {
 	public class Synapse : FuckingNeuralNetwork.Neural.Synapse<String>, IObjectDataBase<Synapse>
 	{
-		public DataColor Color { get; set; }
 		public Synapse()
 		{
-			Color = new DataColor(255, 0, 0, 0);
 		}
 		public Synapse Delete()
 		{
@@ -21,7 +19,7 @@ namespace VisionBrain.Data
 
 		public Synapse Get()
 		{
-			var s = DataBase.Instance.GetSynapse(id);
+			var s = DataBase.Instance.GetSynapse(this.Id);
 			this.Color = s.Color;
 			this.Id = s.Id;
 			this.InputNeuron = s.InputNeuron;

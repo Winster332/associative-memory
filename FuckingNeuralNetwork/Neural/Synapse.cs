@@ -15,11 +15,13 @@ namespace FuckingNeuralNetwork.Neural
 		public TYPE_IO TypeIO { get; set; }
 		public bool IsActive { get; set; }
 		public float Threshold { get; set; }
+		public DataColor Color { get; set; }
         public Synapse()
 		{
 			TypeIO = TYPE_IO.None;
 			IsActive = false;
 			Id = -1;
+			Color = new DataColor(255, 0, 0, 0);
 		}
 		public Synapse(int id, Neuron<NData> output, Neuron<NData> input, TYPE_IO type, float threshold)
 		{
@@ -29,6 +31,7 @@ namespace FuckingNeuralNetwork.Neural
 			this.TypeIO = type;
 			this.Threshold = threshold;
 			this.IsActive = false;
+			this.Color = new DataColor(255, 0, 0, 0);
 		}
 		public Synapse<NData> Send(List<float> input)
 		{
