@@ -7,7 +7,19 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <ListBox Name="listBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200">
+        <Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+		</Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		
+        <Button Grid.Column="0" Grid.Row="0">Создать</Button>
+        <Button Grid.Column="1" Grid.Row="0">Удалить</Button>
+
+        <ListBox Grid.Row="1" Grid.ColumnSpan="2" Name="listBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200">
             <ListBoxItem Content="Coffie"></ListBoxItem>
             <ListBoxItem Content="Tea"></ListBoxItem>
             <ListBoxItem Content="Orange Juice"></ListBoxItem>

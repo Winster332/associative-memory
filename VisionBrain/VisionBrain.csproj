@@ -64,6 +64,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\Project.cs" />
+    <Compile Include="Logic\UIView.cs" />
     <Compile Include="UI\LayoutProjects.xaml.cs">
       <DependentUpon>LayoutProjects.xaml</DependentUpon>
     </Compile>
@@ -75,6 +76,31 @@
     </Compile>
     <Compile Include="UI\TopBar.xaml.cs">
       <DependentUpon>TopBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\UILogic.cs" />
+    <Compile Include="Windows\ViewerTable.xaml.cs">
+      <DependentUpon>ViewerTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WindowAppSettings.xaml.cs">
+      <DependentUpon>WindowAppSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WindowCreateProject.xaml.cs">
+      <DependentUpon>WindowCreateProject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WindowManagementDataBase.xaml.cs">
+      <DependentUpon>WindowManagementDataBase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WindowNotification.xaml.cs">
+      <DependentUpon>WindowNotification.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WindowRegistration.xaml.cs">
+      <DependentUpon>WindowRegistration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WindowSigIn.xaml.cs">
+      <DependentUpon>WindowSigIn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WindowWorkspace.xaml.cs">
+      <DependentUpon>WindowWorkspace.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -103,6 +129,38 @@
     <Page Include="UI\TopBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\ViewerTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WindowAppSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WindowCreateProject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WindowManagementDataBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WindowNotification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WindowRegistration.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WindowSigIn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WindowWorkspace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -139,9 +197,7 @@
       <Name>Associative-Memory</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Windows\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

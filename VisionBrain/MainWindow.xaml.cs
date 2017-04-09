@@ -20,11 +20,15 @@ namespace VisionBrain
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		private Logic.UILogic Logic { get; set; }
 		public UI.TopBar TopBar { get { return topBar; } set { topBar = value; } }
 		public MainWindow()
 		{
 			InitializeComponent();
 			TopBar.SetLeftPanel(leftPanel);
+
+			Logic = new Logic.UILogic();
+			Logic.View.MainWindow = this;
 
 			#region add command
 			this.CommandBindings.Add(new CommandBinding(SystemCommands.CloseWindowCommand, this.OnCloseWindow));
