@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FuckingNeuralNetwork.Neural
 {
-	public class Net<NData> : AnalysNet
+	public class Net<NData> : AnalysNet, IObjectDataBase<Net<NData>>
 	{
 		public int Id { get; set; }
 		public String Name { get; set; }
@@ -16,6 +16,11 @@ namespace FuckingNeuralNetwork.Neural
 			Neurons = new List<Neuron<NData>>();
 			Id = -1;
 			Name = "NULL";
+		}
+		public Net(String name, List<Neuron<NData>> neurons) : base()
+		{
+			this.Name = name;
+			this.Neurons = neurons;
 		}
 		public Neuron<NData> AddNeuron(NData data, List<float> input)
 		{
@@ -49,5 +54,34 @@ namespace FuckingNeuralNetwork.Neural
 			return Neurons[index].Train(Neurons[index].Data, input, desired, velocity);
 		}
 		public void Reset(bool withSynapse = false) => Neurons.ForEach(n => n.Reset(withSynapse));
+		public Net<NData> Delete()
+		{
+			DataBase<NData>.Instance.DeleteNet(this);
+			return this;
+		}
+
+		public Net<NData> Get()
+		{
+			var n = DataBase<NData>.Instance.GetNet(this.Id);
+			this.Id = n.Id;
+			this.Name = n.Name;
+			this.Neurons = n.Neurons;
+			return this;
+		}
+
+		public static Net<NData> Load(int id)
+		{
+			return null;
+		}
+
+		public Net<NData> Save()
+		{
+			DataBase<NData>.Instance.UpdateNet(this);
+			return this;
+		}
+		public static int Create(Net<NData> net)
+		{
+			return DataBase<NData>.Instance.InsertNet(net);
+		}
 	}
 }

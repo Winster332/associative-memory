@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FuckingNeuralNetwork.Neural
 {
-	public class Synapse<NData>
+	public class Synapse<NData> : IObjectDataBase<Synapse<NData>>
 	{
 		public int Id { get; set; }
 		public Neuron<NData> OutputNeuron { get; set; }
@@ -58,6 +58,42 @@ namespace FuckingNeuralNetwork.Neural
 		{
 			return "Output[" + OutputNeuron.GetHashCode() + "] Input[" + InputNeuron.GetHashCode() +
 				"] Type[" + TypeIO + "] IsActive[" + IsActive + "] Threshold[" + Threshold + "]";
+		}
+
+		public Synapse<NData> Delete()
+		{
+			DataBase<NData>.Instance.DeleteSynapse(this);
+			return this;
+		}
+
+		public Synapse<NData> Get()
+		{
+			var s = DataBase<NData>.Instance.GetSynapse(this.Id);
+			this.Color = s.Color;
+			this.Id = s.Id;
+			this.InputNeuron = s.InputNeuron;
+			this.IsActive = s.IsActive;
+			this.OutputNeuron = s.OutputNeuron;
+			this.Threshold = s.Threshold;
+			this.TypeIO = s.TypeIO;
+			return this;
+		}
+
+		public Synapse<NData> Save()
+		{
+			DataBase<NData>.Instance.UpdateSynapse(this);
+			return this;
+		}
+
+		public static int Create(Synapse<NData> synapse)
+		{
+			return DataBase<NData>.Instance.InsertSynapse(synapse);
+		}
+
+		public static Synapse<NData> Load(int id)
+		{
+			var s = DataBase<NData>.Instance.GetSynapse(id);
+			return s;
 		}
 	}
 }

@@ -4,8 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VisionBrain.Data;
+using Neuron = FuckingNeuralNetwork.Neural.Neuron<System.String>;
+using Synapse = FuckingNeuralNetwork.Neural.Synapse<System.String>;
+using Net = FuckingNeuralNetwork.Neural.Net<System.String>;
 using DataColor = FuckingNeuralNetwork.Neural.DataColor;
+using DataBase = FuckingNeuralNetwork.Neural.DataBase<System.String>;
 
 namespace UnitTestProject.Data
 {
@@ -98,7 +101,7 @@ namespace UnitTestProject.Data
 
 			Assert.IsNotNull(newNeuron);
 			Assert.AreEqual(neuron.Id, newNeuron.Id);
-			Assert.AreEqual(neuron.Color, newNeuron.Color);
+			Assert.AreEqual(neuron.Color.ToString(), newNeuron.Color.ToString());
 			Assert.AreEqual(neuron.Data, newNeuron.Data);
 			Assert.AreEqual(neuron.Radius, newNeuron.Radius);
 			Assert.AreEqual(neuron.X, newNeuron.X);
@@ -129,7 +132,7 @@ namespace UnitTestProject.Data
 			synapse.Delete();
 			var newSynapse = Synapse.Load(id);
 
-			Assert.IsNull(newSynapse);
+			Assert.AreEqual(newSynapse.Id, -1);
 		}
 		[TestMethod]
 		public void GetSynapse()
@@ -143,26 +146,32 @@ namespace UnitTestProject.Data
 		[TestMethod]
 		public void UpdateSynapse()
 		{
+			FuckingNeuralNetwork.Neural.Neuron<string> neuron1 = Neuron.Load(Neuron.Create((Neuron)new FuckingNeuralNetwork.Neural.Neuron<string>(new FuckingNeuralNetwork.Neural.Vec3(), 34, 21, "Fuck all", 121, 34)));
+			FuckingNeuralNetwork.Neural.Neuron<string> neuron2 = Neuron.Load(Neuron.Create((Neuron)new FuckingNeuralNetwork.Neural.Neuron<string>(new FuckingNeuralNetwork.Neural.Vec3(), 12, 122, "Fuck world", 93, 12)));
+
 			int id = Synapse.Create(new Synapse());
 			var synapse = Synapse.Load(id);
 			synapse.Color = new DataColor(1,2,3,4);
 			synapse.Threshold = 21;
 			synapse.TypeIO = FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.Output;
-			synapse.InputNeuron = new FuckingNeuralNetwork.Neural.Neuron<string>(new FuckingNeuralNetwork.Neural.Vec3(), 12, 122, "Fuck world", 93, 12);
-			synapse.OutputNeuron = new FuckingNeuralNetwork.Neural.Neuron<string>(new FuckingNeuralNetwork.Neural.Vec3(), 34, 21, "Fuck all", 121, 34);
+			synapse.InputNeuron = neuron1;
+			synapse.OutputNeuron = neuron2;
 			synapse.Save();
 
 			var newSynapse = Synapse.Load(synapse.Id);
 
 			Assert.IsNotNull(newSynapse);
 			Assert.AreEqual(synapse.Id, newSynapse.Id);
-			Assert.AreEqual(synapse.Color, newSynapse.Color);
+			Assert.AreEqual(synapse.Color.ToString(), newSynapse.Color.ToString());
 			Assert.AreEqual(synapse.InputNeuron.Id, newSynapse.InputNeuron.Id);
 			Assert.AreEqual(synapse.OutputNeuron.Id, newSynapse.OutputNeuron.Id);
 			Assert.AreEqual(synapse.Threshold, newSynapse.Threshold);
 			Assert.AreEqual(synapse.TypeIO, newSynapse.TypeIO);
 
 			synapse.Delete();
+
+			((Neuron)neuron1).Delete();
+			((Neuron)neuron2).Delete();
 		}
 		#endregion
 		#region net

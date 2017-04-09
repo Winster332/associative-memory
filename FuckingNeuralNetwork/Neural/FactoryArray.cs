@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using FuckingNeuralNetwork.Neural;
 
-namespace VisionBrain.Data
+namespace FuckingNeuralNetwork.Neural
 {
-	public static class FactoryArray
+	public static class FactoryArray<T>
 	{
 		public static String GenericArrayString(List<float> list)
 		{
@@ -19,7 +19,7 @@ namespace VisionBrain.Data
 				return res;
 			} else return "[]";
 		}
-		public static String GenericArrayString(List<FuckingNeuralNetwork.Neural.Synapse<String>> list)
+		public static String GenericArrayString(List<Synapse<T>> list)
 		{
 			if (list.Count != 0)
 			{
@@ -31,7 +31,7 @@ namespace VisionBrain.Data
 				return "[]";
 			}
 		}
-		public static String GenericArrayString(List<FuckingNeuralNetwork.Neural.Neuron<String>> list)
+		public static String GenericArrayString(List<Neuron<T>> list)
 		{
 			if (list.Count != 0)
 			{
@@ -43,13 +43,13 @@ namespace VisionBrain.Data
 				return "[]";
 			}
 		}
-		public static List<FuckingNeuralNetwork.Neural.Synapse<String>> GetSynapses(String text)
+		public static List<Synapse<T>> GetSynapses(String text)
 		{
 			if (text != "[]")
 			{
 				text = text.Substring(1, text.Length-1);
-				List<FuckingNeuralNetwork.Neural.Synapse<String>> res =
-					new List<FuckingNeuralNetwork.Neural.Synapse<String>>();
+				List<FuckingNeuralNetwork.Neural.Synapse<T>> res =
+					new List<FuckingNeuralNetwork.Neural.Synapse<T>>();
 				String timeoutSymbol = "";
 				for (int i = 0; i < text.Length; i++)
 				{
@@ -58,12 +58,12 @@ namespace VisionBrain.Data
 					else
 					{
 						int id = int.Parse(timeoutSymbol);
-						res.Add(Synapse.Load(id));
+						res.Add(Synapse<T>.Load(id));
 						timeoutSymbol = "";
 					}
 				}
 				return res;
-			} else return new List<FuckingNeuralNetwork.Neural.Synapse<string>>();
+			} else return new List<Synapse<T>>();
 		}
 		public static List<float> GetFloatArray(String text)
 		{
@@ -88,9 +88,9 @@ namespace VisionBrain.Data
 			return res;
 		}
 
-		public static List<Neuron<string>> GetNeurons(string text)
+		public static List<Neuron<T>> GetNeurons(string text)
 		{
-			List<Neuron<String>> neurons = new List<Neuron<string>>();
+			List<Neuron<T>> neurons = new List<Neuron<T>>();
 
 			if (text != "[]")
 			{
@@ -103,7 +103,7 @@ namespace VisionBrain.Data
 					else
 					{
 						int id = int.Parse(timeoutSymbol);
-						neurons.Add(Neuron.Load(id));
+						neurons.Add(Neuron<T>.Load(id));
 						timeoutSymbol = "";
 					}
 				}

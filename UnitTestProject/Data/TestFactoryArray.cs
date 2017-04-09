@@ -5,6 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using VisionBrain.Data;
+using FactoryArray = FuckingNeuralNetwork.Neural.FactoryArray<string>;
+using DataBase = FuckingNeuralNetwork.Neural.DataBase<string>;
+using Neuron = FuckingNeuralNetwork.Neural.Neuron<string>;
+using Synapse = FuckingNeuralNetwork.Neural.Synapse<string>;
+using Net = FuckingNeuralNetwork.Neural.Net<string>;
 
 namespace UnitTestProject.Data
 {

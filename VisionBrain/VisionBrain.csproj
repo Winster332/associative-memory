@@ -63,14 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Data\DataBase.cs" />
-    <Compile Include="Data\FactoryArray.cs" />
-    <Compile Include="Data\IObjectDataBase.cs" />
-    <Compile Include="Data\Net.cs" />
-    <Compile Include="Data\Neuron.cs" />
-    <Compile Include="Data\PoolConnection.cs" />
     <Compile Include="Data\Project.cs" />
-    <Compile Include="Data\Synapse.cs" />
     <Compile Include="UI\LayoutProjects.xaml.cs">
       <DependentUpon>LayoutProjects.xaml</DependentUpon>
     </Compile>

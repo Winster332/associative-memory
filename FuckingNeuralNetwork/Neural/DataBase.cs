@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using DataColor = FuckingNeuralNetwork.Neural.DataColor;
-
-namespace VisionBrain.Data
+ 
+namespace FuckingNeuralNetwork.Neural
 {
-	public class DataBase
+	public class DataBase<T>
 	{
-		public static DataBase Instance
+		public static DataBase<T> Instance
 		{
 			get
 			{
 				if (_instance == null)
-					_instance = new DataBase();
+					_instance = new DataBase<T>();
 				return _instance;
 			}
 			private set { _instance = value; }
 		}
-		private static DataBase _instance;
+		private static DataBase<T> _instance;
 		public PoolConnection Pool { get; set; }
 		private String stringConnection = @"Data Source=(localdb)\ProjectsV12;AttachDbFilename=C:\Users\stas-\AppData\Local\Microsoft\VisualStudio\SSDT\Associative-Memory\NeuralDatabase.mdf;Initial Catalog=NeuralDatabase;Integrated Security=True";
 		private DataBase()
@@ -38,7 +38,7 @@ namespace VisionBrain.Data
 			Pool.Close(Pool.LastConnection);
 		}
 		#region Neuron
-		public int InsertNeuron(Neuron neuron)
+		public int InsertNeuron(Neuron<T> neuron)
 		{
 			var newId = -1;
 			Open();
@@ -46,14 +46,14 @@ namespace VisionBrain.Data
 			var cmd = Pool.LastConnection.CreateCommand();
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "[NeuralDatabase].[dbo].[insertNeuron]";
-			cmd.Parameters.Add("@weights", SqlDbType.Text).Value = FactoryArray.GenericArrayString(neuron.Weight);
+			cmd.Parameters.Add("@weights", SqlDbType.Text).Value = FactoryArray<T>.GenericArrayString(neuron.Weight);
 			cmd.Parameters.Add("@neuronData", SqlDbType.Text).Value = neuron.Data;
 			cmd.Parameters.Add("@radius", SqlDbType.Float).Value = neuron.Radius;
 			cmd.Parameters.Add("@color", SqlDbType.Text).Value = neuron.Color.ToString();
 			cmd.Parameters.Add("@x", SqlDbType.Float).Value = neuron.X;
 			cmd.Parameters.Add("@y", SqlDbType.Float).Value = neuron.Y;
 			cmd.Parameters.Add("@z", SqlDbType.Float).Value = neuron.Z;
-			cmd.Parameters.Add("@synaoses", SqlDbType.Text).Value = FactoryArray.GenericArrayString(neuron.Synapses);
+			cmd.Parameters.Add("@synaoses", SqlDbType.Text).Value = FactoryArray<T>.GenericArrayString(neuron.Synapses);
 			
 			var reader = cmd.ExecuteReader();
 			while (reader.Read())
@@ -64,7 +64,7 @@ namespace VisionBrain.Data
 
 			return newId;
 		}
-		public void UpdateNeuron(Neuron neuron)
+		public void UpdateNeuron(Neuron<T> neuron)
 		{
 			Open();
 
@@ -72,19 +72,19 @@ namespace VisionBrain.Data
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "[NeuralDatabase].[dbo].[updateNeuron]";
 			cmd.Parameters.Add("@Id", SqlDbType.Int).Value = neuron.Id;
-			cmd.Parameters.Add("@weights", SqlDbType.Text).Value = neuron.Weight.ToArray().ToString();
+			cmd.Parameters.Add("@weights", SqlDbType.Text).Value = FactoryArray<T>.GenericArrayString(neuron.Weight);
 			cmd.Parameters.Add("@neuronData", SqlDbType.Text).Value = neuron.Data;
 			cmd.Parameters.Add("@radius", SqlDbType.Float).Value = neuron.Radius;
 			cmd.Parameters.Add("@color", SqlDbType.Text).Value = neuron.Color.ToString();
 			cmd.Parameters.Add("@x", SqlDbType.Float).Value = neuron.X;
 			cmd.Parameters.Add("@y", SqlDbType.Float).Value = neuron.Y;
 			cmd.Parameters.Add("@z", SqlDbType.Float).Value = neuron.Z;
-			cmd.Parameters.Add("@synaoses", SqlDbType.Text).Value = neuron.Synapses.ToString();
+			cmd.Parameters.Add("@synaoses", SqlDbType.Text).Value = FactoryArray<T>.GenericArrayString(neuron.Synapses);
 			
 			var reader = cmd.ExecuteNonQuery();
 			CloseLast();
 		}
-		public void DeleteNeuron(Neuron neuron)
+		public void DeleteNeuron(Neuron<T> neuron)
 		{
 			Open();
 			var cmd = Pool.LastConnection.CreateCommand();
@@ -94,10 +94,10 @@ namespace VisionBrain.Data
 			cmd.ExecuteNonQuery();
 			CloseLast();
 		}
-		public Neuron GetNeuron(int id)
+		public Neuron<T> GetNeuron(int id)
 		{
 			Open();
-			var n = new Neuron(new FuckingNeuralNetwork.Neural.Vec3(), "", null);
+			var n = new Neuron<T>();
 			var cmd = Pool.LastConnection.CreateCommand();
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "[NeuralDatabase].[dbo].[getNeuron]";
@@ -107,32 +107,32 @@ namespace VisionBrain.Data
 
 			while (reader.Read())
 			{
-				var aColor = FactoryArray.GetFloatArray(reader.GetString(4));
+				var aColor = FactoryArray<T>.GetFloatArray(reader.GetString(4));
                 n.Id = reader.GetInt32(0);
-				n.Weight = FactoryArray.GetFloatArray(reader.GetString(1));
-				n.Data = reader.GetString(2);
+				n.Weight = FactoryArray<T>.GetFloatArray(reader.GetString(1));
+				n.Data = reader.GetFieldValue<T>(2);//.GetString(2);
 				n.Radius = (float)reader.GetDouble(3);
 				n.Color = new DataColor((int)aColor[0], (int)aColor[1], (int)aColor[2], (int)aColor[3]);
 				n.X = (float)reader.GetDouble(5);
 				n.Y = (float)reader.GetDouble(6);
 				n.Z = (float)reader.GetDouble(7);
-				n.Synapses = FactoryArray.GetSynapses(reader.GetString(8));
+				n.Synapses = FactoryArray<T>.GetSynapses(reader.GetString(8));
 			}
 			CloseLast();
 			return n;
 		}
 		#endregion
 		#region Synapse
-		public int InsertSynapse(Synapse synapse)
+		public int InsertSynapse(Synapse<T> synapse)
 		{
 			Open();
 
 			var type = 0;
 			switch(synapse.TypeIO)
 			{
-				case FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.None: type = 0; break;
-				case FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.Input: type = 1; break;
-				case FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.Output: type = 2; break;
+				case Synapse<T>.TYPE_IO.None: type = 0; break;
+				case Synapse<T>.TYPE_IO.Input: type = 1; break;
+				case Synapse<T>.TYPE_IO.Output: type = 2; break;
 			}
 			var newId = -1;
 			var cmd = Pool.LastConnection.CreateCommand();
@@ -159,15 +159,15 @@ namespace VisionBrain.Data
 			CloseLast();
 			return newId;
 		}
-		public void UpdateSynapse(Synapse synapse)
+		public void UpdateSynapse(Synapse<T> synapse)
 		{
 			Open();
 			var type = 0;
 			switch (synapse.TypeIO)
 			{
-				case FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.None: type = 0; break;
-				case FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.Input: type = 1; break;
-				case FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.Output: type = 2; break;
+				case FuckingNeuralNetwork.Neural.Synapse<T>.TYPE_IO.None: type = 0; break;
+				case FuckingNeuralNetwork.Neural.Synapse<T>.TYPE_IO.Input: type = 1; break;
+				case FuckingNeuralNetwork.Neural.Synapse<T>.TYPE_IO.Output: type = 2; break;
 			}
 			var cmd = Pool.LastConnection.CreateCommand();
 			cmd.CommandType = CommandType.StoredProcedure;
@@ -183,7 +183,7 @@ namespace VisionBrain.Data
 
 			CloseLast();
 		}
-		public void DeleteSynapse(Synapse synapse)
+		public void DeleteSynapse(Synapse<T> synapse)
 		{
 			Open();
 			var cmd = Pool.LastConnection.CreateCommand();
@@ -193,10 +193,10 @@ namespace VisionBrain.Data
 			cmd.ExecuteNonQuery();
 			CloseLast();
 		}
-		public Synapse GetSynapse(int id)
+		public Synapse<T> GetSynapse(int id)
 		{
 			var connection = Pool.Open(stringConnection);
-			var n = new Synapse();
+			var n = new Synapse<T>();
 			var cmd = connection.CreateCommand();
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "[NeuralDatabase].[dbo].[getSynapse]";
@@ -206,17 +206,17 @@ namespace VisionBrain.Data
 
 			while (reader.Read())
 			{
-				var aColor = FactoryArray.GetFloatArray(reader.GetString(5));
+				var aColor = FactoryArray<T>.GetFloatArray(reader.GetString(5));
 				n.Id = reader.GetInt32(0);
 				n.Color = new DataColor((int)aColor[0], (int)aColor[1], (int)aColor[2], (int)aColor[3]);
-				n.InputNeuron = Neuron.Load(reader.GetInt32(2));
-				n.OutputNeuron = Neuron.Load(reader.GetInt32(1));
+				n.InputNeuron = Neuron<T>.Load(reader.GetInt32(2));
+				n.OutputNeuron = Neuron<T>.Load(reader.GetInt32(1));
 
 				switch(reader.GetInt32(3))
 				{
-					case 0: n.TypeIO = FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.None; break;
-					case 1: n.TypeIO = FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.Input; break;
-					case 2: n.TypeIO = FuckingNeuralNetwork.Neural.Synapse<string>.TYPE_IO.Output; break;
+					case 0: n.TypeIO = FuckingNeuralNetwork.Neural.Synapse<T>.TYPE_IO.None; break;
+					case 1: n.TypeIO = FuckingNeuralNetwork.Neural.Synapse<T>.TYPE_IO.Input; break;
+					case 2: n.TypeIO = FuckingNeuralNetwork.Neural.Synapse<T>.TYPE_IO.Output; break;
 				}
 
 				n.Threshold = (float)reader.GetDouble(4);
@@ -228,7 +228,7 @@ namespace VisionBrain.Data
 		}
 		#endregion
 		#region Net
-		public int InsertNet(Net net)
+		public int InsertNet(Net<T> net)
 		{
 			Open();
 			var newId = -1;
@@ -237,7 +237,7 @@ namespace VisionBrain.Data
 			cmd.CommandText = "[NeuralDatabase].[dbo].[insertNet]";
 			cmd.Parameters.Add("@id", SqlDbType.Int).Value = net.Id;
 			cmd.Parameters.Add("@name", SqlDbType.Text).Value = net.Name;
-			cmd.Parameters.Add("@neurons", SqlDbType.Text).Value = FactoryArray.GenericArrayString(net.Neurons);
+			cmd.Parameters.Add("@neurons", SqlDbType.Text).Value = FactoryArray<T>.GenericArrayString(net.Neurons);
 
 			var reader = cmd.ExecuteReader();
 			while (reader.Read())
@@ -248,7 +248,7 @@ namespace VisionBrain.Data
 			CloseLast();
 			return newId;
 		}
-		public void DeleteNet(Net net)
+		public void DeleteNet(Net<T> net)
 		{
 			Open();
 			var cmd = Pool.LastConnection.CreateCommand();
@@ -258,7 +258,7 @@ namespace VisionBrain.Data
 			cmd.ExecuteNonQuery();
 			CloseLast();
 		}
-		public void UpdateNet(Net net)
+		public void UpdateNet(Net<T> net)
 		{
 			Open();
 			var cmd = Pool.LastConnection.CreateCommand();
@@ -266,16 +266,16 @@ namespace VisionBrain.Data
 			cmd.CommandText = "[NeuralDatabase].[dbo].[updateNet]";
 			cmd.Parameters.Add("@id", SqlDbType.Int).Value = net.Id;
 			cmd.Parameters.Add("@name", SqlDbType.Text).Value = net.Name;
-			cmd.Parameters.Add("@neurons", SqlDbType.Text).Value = FactoryArray.GenericArrayString(net.Neurons);
+			cmd.Parameters.Add("@neurons", SqlDbType.Text).Value = FactoryArray<T>.GenericArrayString(net.Neurons);
 
 			cmd.ExecuteNonQuery();
 
 			CloseLast();
 		}
-		public Net GetNet(int id)
+		public Net<T> GetNet(int id)
 		{
 			var connection = Pool.Open(stringConnection);
-			Net net = new Net();
+			Net<T> net = new Net<T>();
 			var cmd = connection.CreateCommand();
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "[NeuralDatabase].[dbo].[getNet]";
@@ -286,7 +286,7 @@ namespace VisionBrain.Data
 			{
 				net.Id = reader.GetInt32(0);
 				net.Name = reader.GetString(2);
-				net.Neurons = FactoryArray.GetNeurons(reader.GetString(1));
+				net.Neurons = FactoryArray<T>.GetNeurons(reader.GetString(1));
 			}
 
 			Pool.Close(connection);
