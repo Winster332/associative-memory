@@ -12,20 +12,21 @@
     <Grid>
         <StackPanel>
             <ListBox Name="listBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200">
-                <ListBoxItem Content="Войти" MouseLeftButtonUp="ListBoxItem_MouseLeftButtonUp"></ListBoxItem>
-                <ListBoxItem Content="Регистрация"></ListBoxItem>
+            <ListBoxItem Content="Войти" MouseLeftButtonUp="ListBoxItem_MouseLeftButtonUp"></ListBoxItem>
+            <ListBoxItem Content="Регистрация"></ListBoxItem>
 
-                <ListBoxItem Content="Анализ кода" IsEnabled="False"></ListBoxItem>
+            <ListBoxItem Content="Анализ дистанций" IsEnabled="False"></ListBoxItem>
             <ListBoxItem Content="Построить граф" IsEnabled="False"></ListBoxItem>
             <ListBoxItem Content="Построить UML диаграмму" IsEnabled="False"></ListBoxItem>
-            <ListBoxItem Content="Скомпилировать" IsEnabled="False"></ListBoxItem>
+            <ListBoxItem Content="Сохранить" IsEnabled="False"></ListBoxItem>
+            <ListBoxItem Content="Синхронизировать" IsEnabled="False"></ListBoxItem>
             <ListBoxItem Content="Запустить" IsEnabled="False"></ListBoxItem>
+            <ListBoxItem Content="Отладить" IsEnabled="False"></ListBoxItem>
+				
             <ListBoxItem Content="Настройки профиля" IsEnabled="False"></ListBoxItem>
             <ListBoxItem Content="Настройки проекта" IsEnabled="False"></ListBoxItem>
             <ListBoxItem Content="Настройки приложения"></ListBoxItem>
             <ListBoxItem Content="Закрыть проект" IsEnabled="False"></ListBoxItem>
-            <ListBoxItem Content="Печать" IsEnabled="False"></ListBoxItem>
-            <ListBoxItem Content="О нас"></ListBoxItem>
             <ListBoxItem Content="Справка"></ListBoxItem>
             <ListBoxItem Content="Связаться с нами"></ListBoxItem>
             <ListBoxItem Content="Выход"></ListBoxItem>

@@ -20,9 +20,11 @@ namespace VisionBrain
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		public UI.TopBar TopBar { get { return topBar; } set { topBar = value; } }
 		public MainWindow()
 		{
 			InitializeComponent();
+			TopBar.SetLeftPanel(leftPanel);
 
 			#region add command
 			this.CommandBindings.Add(new CommandBinding(SystemCommands.CloseWindowCommand, this.OnCloseWindow));

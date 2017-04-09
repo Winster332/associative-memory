@@ -20,6 +20,7 @@ namespace VisionBrain.UI
 	/// </summary>
 	public partial class TopBar : UserControl
 	{
+		public event EventHandler ClickOpenMenu;
 		private bool isVisible = false;
 		private UIElement leftPanel;
 
@@ -33,7 +34,7 @@ namespace VisionBrain.UI
 			this.leftPanel = element;
 		}
 
-		private void buttonLeftPanel_Click(object sender, RoutedEventArgs e)
+		public void ActiveMenu()
 		{
 			var animation = new System.Windows.Media.Animation.ThicknessAnimation();
 
@@ -41,24 +42,34 @@ namespace VisionBrain.UI
 			{
 				animation.From = new Thickness(-200, 0, 0, 0);
 				animation.To = new Thickness(0, 0, 0, 0);
-			} else {
+			} else
+			{
 				animation.From = new Thickness(0, 0, 0, 0);
 				animation.To = new Thickness(-200, 0, 0, 0);
 			}
 			animation.Duration = new Duration(TimeSpan.FromSeconds(0.5));
-			animation.EasingFunction = new System.Windows.Media.Animation.PowerEase()
-			{
-				EasingMode = System.Windows.Media.Animation.EasingMode.EaseInOut,
-				Power = 3
-			};
-			System.Windows.Media.Animation.Storyboard.SetTarget(animation, leftPanel);
-			System.Windows.Media.Animation.Storyboard.SetTargetProperty(animation, new PropertyPath("Margin"));
+			//animation.EasingFunction = new System.Windows.Media.Animation.PowerEase()
+			//{
+			//	EasingMode = System.Windows.Media.Animation.EasingMode.EaseInOut,
+			//	Power = 3
+			//};
 
+			System.Windows.Media.Animation.Storyboard.SetTarget(animation, leftPanel);
+			System.Windows.Media.Animation.Storyboard.SetTargetProperty(animation, new PropertyPath(MarginProperty));
 			System.Windows.Media.Animation.Storyboard s = new System.Windows.Media.Animation.Storyboard();
 			s.Children.Add(animation);
+
 			s.Begin();
 
 			isVisible = !isVisible;
+		}
+
+		private void buttonLeftPanel_Click(object sender, RoutedEventArgs e)
+		{
+			if (ClickOpenMenu != null)
+				ClickOpenMenu(sender, e);
+
+			ActiveMenu();
 		}
 	}
 }
