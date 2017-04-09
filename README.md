@@ -13,10 +13,15 @@ Project
 |                                |--Synapse(C)
 |                                |--Net(C)
 |                                |--Vec3(C)
+|				 |--DataBase(C)
+|				 |--DataColor(C)
+|				 |--FactoryArray(C)
+|				 |--IObjectDataBase(I)
+|				 |--PoolConnection(C)
 |                                +--AnalysNet(C)
 |--VisionBrain--+
-|               |--Data--+
-|               |        |--DataBase(C)
+|		|--Data--+
+|			 +--Project(C)
 |               |--UI--+
 |               |      |--LayoutProject(XML, C)
 |               |      |--LeftBarContent(XML, C)
@@ -29,25 +34,21 @@ Project
                    |          |--Net(Id, NeuronId, SynapseId)
                    |          |--Neuron(Id, Weight, Data)
                    |          |--Synapse(Id, FromId, ToId, Type, Threshold)
-                   |          |--SetUpApp("In developing")
                    |          +--Projects(Id, Name, Path, CountNeurons, CountSynapses, SettingId, NetId)
-                   +--Stored procedures--+("In developing")
+                   +--Stored procedures--+
+					 |--deleteNet
                                          |--deleteNeuron
                                          |--deleteSynapse
-                                         |--getAllNeuronsFromProject
-                                         |--getAllSynapsesFromProject
+                                         |--getNet
+                                         |--getNeuron
+                                         |--getSynapse
                                          |--getProjects
                                          |--insertNeuron
                                          |--insertSynapse
                                          |--insertProject
                                          |--insertNet
-                                         |--getNet
                                          |--updateNet
-                                         |--insertAppSettings
-                                         |--updateAppSettings
-                                         |--deleteAppSettings
                                          |--updateNeuron
-                                         |--updateProject
                                          +--updateSynapse
 ```
 ## Example
