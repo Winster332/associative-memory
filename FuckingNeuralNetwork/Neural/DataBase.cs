@@ -235,9 +235,8 @@ namespace FuckingNeuralNetwork.Neural
 			var cmd = Pool.LastConnection.CreateCommand();
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "[NeuralDatabase].[dbo].[insertNet]";
-			cmd.Parameters.Add("@id", SqlDbType.Int).Value = net.Id;
 			cmd.Parameters.Add("@name", SqlDbType.Text).Value = net.Name;
-			cmd.Parameters.Add("@neurons", SqlDbType.Text).Value = FactoryArray<T>.GenericArrayString(net.Neurons);
+			cmd.Parameters.Add("@neuronIds", SqlDbType.Text).Value = FactoryArray<T>.GenericArrayString(net.Neurons);
 
 			var reader = cmd.ExecuteReader();
 			while (reader.Read())
@@ -254,7 +253,7 @@ namespace FuckingNeuralNetwork.Neural
 			var cmd = Pool.LastConnection.CreateCommand();
 			cmd.CommandType = CommandType.StoredProcedure;
 			cmd.CommandText = "[NeuralDatabase].[dbo].[deleteNet]";
-			cmd.Parameters.Add("@Id", SqlDbType.Int).Value = net.Id;
+			cmd.Parameters.Add("@id", SqlDbType.Int).Value = net.Id;
 			cmd.ExecuteNonQuery();
 			CloseLast();
 		}
@@ -266,7 +265,7 @@ namespace FuckingNeuralNetwork.Neural
 			cmd.CommandText = "[NeuralDatabase].[dbo].[updateNet]";
 			cmd.Parameters.Add("@id", SqlDbType.Int).Value = net.Id;
 			cmd.Parameters.Add("@name", SqlDbType.Text).Value = net.Name;
-			cmd.Parameters.Add("@neurons", SqlDbType.Text).Value = FactoryArray<T>.GenericArrayString(net.Neurons);
+			cmd.Parameters.Add("@ids", SqlDbType.Text).Value = FactoryArray<T>.GenericArrayString(net.Neurons);
 
 			cmd.ExecuteNonQuery();
 

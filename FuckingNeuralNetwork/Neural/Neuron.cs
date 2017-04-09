@@ -44,6 +44,7 @@ namespace FuckingNeuralNetwork.Neural
 			this.Radius = radius;
 			this.Id = id;
 			this.Data = data;
+			Color = new DataColor(255,25,55,55);
 			for (var i = 0; i < lengthWeight; i++)
 				Weight.Add(valueWeight);
 		}

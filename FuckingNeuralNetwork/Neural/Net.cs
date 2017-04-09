@@ -71,7 +71,7 @@ namespace FuckingNeuralNetwork.Neural
 
 		public static Net<NData> Load(int id)
 		{
-			return null;
+			return DataBase<NData>.Instance.GetNet(id);
 		}
 
 		public Net<NData> Save()

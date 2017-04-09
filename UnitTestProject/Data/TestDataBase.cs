@@ -146,8 +146,8 @@ namespace UnitTestProject.Data
 		[TestMethod]
 		public void UpdateSynapse()
 		{
-			FuckingNeuralNetwork.Neural.Neuron<string> neuron1 = Neuron.Load(Neuron.Create((Neuron)new FuckingNeuralNetwork.Neural.Neuron<string>(new FuckingNeuralNetwork.Neural.Vec3(), 34, 21, "Fuck all", 121, 34)));
-			FuckingNeuralNetwork.Neural.Neuron<string> neuron2 = Neuron.Load(Neuron.Create((Neuron)new FuckingNeuralNetwork.Neural.Neuron<string>(new FuckingNeuralNetwork.Neural.Vec3(), 12, 122, "Fuck world", 93, 12)));
+			Neuron neuron1 = Neuron.Load(Neuron.Create(new Neuron(new FuckingNeuralNetwork.Neural.Vec3(), 34, 21, "Fuck all", 121, 34)));
+			Neuron neuron2 = Neuron.Load(Neuron.Create(new Neuron(new FuckingNeuralNetwork.Neural.Vec3(), 12, 122, "Fuck world", 93, 12)));
 
 			int id = Synapse.Create(new Synapse());
 			var synapse = Synapse.Load(id);
@@ -170,8 +170,8 @@ namespace UnitTestProject.Data
 
 			synapse.Delete();
 
-			((Neuron)neuron1).Delete();
-			((Neuron)neuron2).Delete();
+			neuron1.Delete();
+			neuron2.Delete();
 		}
 		#endregion
 		#region net
@@ -205,7 +205,7 @@ namespace UnitTestProject.Data
 			net.Delete();
 
 			var newNet = Net.Load(net.Id);
-			Assert.IsNull(newNet);
+			Assert.AreEqual(-1, newNet.Id);
 		}
 		[TestMethod]
 		public void UpdateNet()
@@ -217,13 +217,14 @@ namespace UnitTestProject.Data
 				new Neuron(25, 212, new FuckingNeuralNetwork.Neural.Vec3(32,53,12), "12", new List<float>())
 			});
 			int id = Net.Create(net);
+			net.Id = id;
 			net.Name = "other test";
 			net.Save();
 
-			var netNew = Net.Load(id);
+			var netNew = Net.Load(net.Id);
 
-			Assert.IsNotNull(net);
-			Assert.AreEqual(id, net.Id);
+			Assert.IsNotNull(netNew);
+			Assert.AreEqual(id, netNew.Id);
 			Assert.AreEqual(net.Name, netNew.Name);
 			Assert.AreEqual(net.Neurons.Count, netNew.Neurons.Count);
 
@@ -242,7 +243,7 @@ namespace UnitTestProject.Data
 			var netNew = Net.Load(id);
 
 			Assert.IsNotNull(net);
-			Assert.AreEqual(id, net.Id);
+			Assert.AreEqual(id, netNew.Id);
 			Assert.AreEqual(net.Name, netNew.Name);
 			Assert.AreEqual(net.Neurons.Count, netNew.Neurons.Count);
 
