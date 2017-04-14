@@ -9,5 +9,6 @@ namespace VisionBrain.Logic
 	public class UIView
 	{
 		public VisionBrain.MainWindow MainWindow { get; set; }
+		public VisionBrain.UI.LayoutProjects Projects { get; set; }
 	}
 }

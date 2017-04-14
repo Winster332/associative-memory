@@ -29,6 +29,8 @@ namespace VisionBrain
 
 			Logic = new Logic.UILogic();
 			Logic.View.MainWindow = this;
+			Logic.View.Projects = projects;
+			projects.Logic = Logic;
 
 			#region add command
 			this.CommandBindings.Add(new CommandBinding(SystemCommands.CloseWindowCommand, this.OnCloseWindow));

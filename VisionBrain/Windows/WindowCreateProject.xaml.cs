@@ -19,9 +19,25 @@ namespace VisionBrain.Windows
 	/// </summary>
 	public partial class WindowCreateProject : Window
 	{
-		public WindowCreateProject()
+		private Logic.UILogic Logic { get; set; }
+		public WindowCreateProject(Logic.UILogic logic)
 		{
+			this.Logic = logic;
 			InitializeComponent();
+		}
+
+		public FuckingNeuralNetwork.Neural.Project<String> GetProject()
+		{
+			var project = new FuckingNeuralNetwork.Neural.Project<string>(textName.Text, -1, 
+				FuckingNeuralNetwork.Neural.FactoryArray<string>.GetIntegerArray("[" + textNets.Text + "]"));
+			return project;
+		}
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			var project = GetProject();
+			Logic.CreateProject(project);
+			this.Close();
 		}
 	}
 }

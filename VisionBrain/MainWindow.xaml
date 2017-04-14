@@ -32,7 +32,7 @@
             </Grid.ColumnDefinitions>
 
             <Canvas x:Name="canvas" Grid.Column="0">
-                <ui:LayoutProjects />
+                <ui:LayoutProjects x:Name="projects" />
                 <ui:LeftBarContent x:Name="leftPanel" Grid.Column="0" Margin="-200, 0, 0, 0"/>
             </Canvas>
 

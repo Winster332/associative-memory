@@ -275,6 +275,16 @@ namespace UnitTestProject.Data
 
 			project.Delete();
 		}
+		[TestMethod]
+		public void GetProjects()
+		{
+			for (int i = 0; i < 5; i++)
+				Project.Create(new FuckingNeuralNetwork.Neural.Project<string>("First project test", 1, new int[] { 2, 3 }));
+			var projects = DataBase.Instance.GetProjects();
+			bool isWork = projects.Count >= 5;
+			Assert.IsTrue(isWork);
+			projects.ForEach(p => p.Delete());
+		}
 		#endregion
 	}
 }

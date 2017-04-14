@@ -68,6 +68,29 @@ namespace FuckingNeuralNetwork.Neural
 			CloseLast();
 			return p;
 		}
+		public List<Project<T>> GetProjects()
+		{
+			var list = new List<Project<T>>();
+			Open();
+
+			var cmd = Pool.LastConnection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[getAllProjects]";
+
+			var reader = cmd.ExecuteReader();
+			while (reader.Read())
+			{
+				Project<T> project = new Project<T>();
+				project.Id = reader.GetInt32(0);
+				project.Name = reader.GetString(1);
+				project.SettingsId = reader.GetInt32(2);
+				project.NetIds = FactoryArray<String>.GetIntegerArray(reader.GetString(3));
+
+				list.Add(project);
+			}
+			CloseLast();
+			return list;
+		}
 		public int InsertProject(Project<T> project)
 		{
 			var newId = -1;

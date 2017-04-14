@@ -16,16 +16,12 @@
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 		
-        <Button Grid.Column="0" Grid.Row="0">Создать</Button>
-        <Button Grid.Column="1" Grid.Row="0">Удалить</Button>
+        <Button Grid.Column="0" Grid.Row="0" Click="Button_Click">Создать</Button>
+        <Button Grid.Column="1" Grid.Row="0" Click="Button_Click_1">Удалить</Button>
 
-        <ListBox Grid.Row="1" Grid.ColumnSpan="2" Name="listBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200">
+        <ListBox Grid.Row="1" Grid.ColumnSpan="2" Name="listBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200">
             <ListBoxItem Content="Coffie"></ListBoxItem>
             <ListBoxItem Content="Tea"></ListBoxItem>
-            <ListBoxItem Content="Orange Juice"></ListBoxItem>
-            <ListBoxItem Content="Milk"></ListBoxItem>
-            <ListBoxItem Content="Iced Tea"></ListBoxItem>
-            <ListBoxItem Content="Mango Shake"></ListBoxItem>
         </ListBox>
     </Grid>
 </UserControl>

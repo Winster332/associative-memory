@@ -20,9 +20,55 @@ namespace VisionBrain.UI
 	/// </summary>
 	public partial class LayoutProjects : UserControl
 	{
+		public Logic.UILogic Logic { get; set; }
 		public LayoutProjects()
 		{
 			InitializeComponent();
+
+			FuckingNeuralNetwork.Neural.DataBase<string>.Instance.GetProjects().ForEach(p => AddItem(p.Name));
+		}
+
+		public void AddItem(String name)
+		{
+			ListBoxItem itme = new ListBoxItem();
+			itme.Content = name;
+			listBox.Items.Add(name);
+		}
+
+		public void DeleteItem(String name)
+		{
+			for (int i = 0; i < listBox.Items.Count; i++)
+				if ((listBox.Items[i]).ToString().Equals(name))
+					listBox.Items.RemoveAt(i);
+		}
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			var window = new Windows.WindowCreateProject(Logic);
+			window.ShowDialog();
+			window.Closed += (o, ee) =>
+			{
+				
+			};
+		}
+
+		private void Button_Click_1(object sender, RoutedEventArgs e)
+		{
+			var project = GetActiveProject();
+			Logic.DeleteProject(project);
+		}
+
+		public FuckingNeuralNetwork.Neural.Project<String> GetActiveProject()
+		{
+			var item = listBox.SelectedItem;
+			var projects = FuckingNeuralNetwork.Neural.DataBase<String>.Instance.GetProjects();
+			FuckingNeuralNetwork.Neural.Project<string> project = null;
+			projects.ForEach(p =>
+			{
+				if (p.Name.Equals(item.ToString()))
+					project = p;
+			});
+			return project;
 		}
 	}
 }

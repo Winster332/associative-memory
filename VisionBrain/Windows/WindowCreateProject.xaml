@@ -4,9 +4,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VisionBrain.Windows"
+		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="WindowCreateProject" Height="300" Width="300">
+		TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+		Style="{StaticResource MaterialWindowDark}"
+        Title="MainWindow" Height="500" Width="525">
     <Grid>
-        
+        <Grid.RowDefinitions>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="30"/>
+		</Grid.RowDefinitions>
+        <StackPanel x:Name="DW" Margin="0 0 0 0">
+            <TextBox x:Name="textName" Text="Имя" Width="100" Height="20" Margin="0 50 0 0"/>
+            <TextBox x:Name="textNets" Text="Nets" Width="100" Height="20" Margin="0 50 0 0"/>
+			<ComboBox Width="100" Height="20"/>
+        </StackPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*"/>
+				<ColumnDefinition Width="110"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Fill="#57E" Grid.ColumnSpan="2"/>
+            <Button Width="100" Grid.Column="1" Click="Button_Click">Создать</Button>
+		</Grid>
     </Grid>
 </Window>
