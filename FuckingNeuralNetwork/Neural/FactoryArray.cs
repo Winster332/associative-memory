@@ -19,6 +19,17 @@ namespace FuckingNeuralNetwork.Neural
 				return res;
 			} else return "[]";
 		}
+		public static String GenericArrayString(int[] list)
+		{
+			if (list.Length != 0)
+			{
+				String res = "[";
+				foreach (var v in list)
+					res += v + ",";
+				res = res.Substring(0, res.Length - 1) + "]";
+				return res;
+			} else return "[]";
+		}
 		public static String GenericArrayString(List<Synapse<T>> list)
 		{
 			if (list.Count != 0)
@@ -43,6 +54,30 @@ namespace FuckingNeuralNetwork.Neural
 				return "[]";
 			}
 		}
+
+		public static int[] GetIntegerArray(string text)
+		{
+			List<int> res = new List<int>();
+
+			if (!text.Equals("[]"))
+			{
+				text = text.Replace("[", "");
+				String timeoutSymbol = "";
+				for (int i = 0; i < text.Length; i++)
+				{
+					if (text[i].ToString() != "," && text[i].ToString() != "]" && text[i].ToString() != "")
+						timeoutSymbol += text[i];
+					else
+					{
+						int w = int.Parse(timeoutSymbol);
+						res.Add(w);
+						timeoutSymbol = "";
+					}
+				}
+			}
+			return res.ToArray();
+		}
+
 		public static List<Synapse<T>> GetSynapses(String text)
 		{
 			if (text != "[]")

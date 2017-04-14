@@ -13,11 +13,11 @@ namespace VisionBrain.Logic
 		{
 			View = new UIView();
 		}
-		public void CreateProject(Data.Project project)
+		public void CreateProject(FuckingNeuralNetwork.Neural.Project<String> project)
 		{
 
 		}
-		public void DeleteProject(Data.Project project)
+		public void DeleteProject(FuckingNeuralNetwork.Neural.Project<String> project)
 		{
 
 		}

@@ -21,9 +21,80 @@ namespace FuckingNeuralNetwork.Neural
 			}
 			private set { _instance = value; }
 		}
+
+		public void UpdateProject(Project<T> project)
+		{
+			Open();
+
+			var cmd = Pool.LastConnection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[updateProject]";
+			cmd.Parameters.Add("@id", SqlDbType.Int).Value = project.Id;
+			cmd.Parameters.Add("@name", SqlDbType.Text).Value = project.Name;
+			cmd.Parameters.Add("@settingsId", SqlDbType.Int).Value = project.SettingsId;
+			cmd.Parameters.Add("@netIds", SqlDbType.Text).Value = FactoryArray<String>.GenericArrayString(project.NetIds);
+
+			var reader = cmd.ExecuteNonQuery();
+			CloseLast();
+		}
+		public void DeleteProject(int id)
+		{
+			Open();
+			var cmd = Pool.LastConnection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[deleteProject]";
+			cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+			cmd.ExecuteNonQuery();
+			CloseLast();
+		}
+		public Project<T> GetProject(int id)
+		{
+			Open();
+			var p = new Project<T>();
+			var cmd = Pool.LastConnection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[getProjects]";
+			cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+			var reader = cmd.ExecuteReader();
+
+			while (reader.Read())
+			{
+				p.Id = reader.GetInt32(0);
+				p.Name = reader.GetString(1);
+				p.SettingsId = reader.GetInt32(2);
+				p.NetIds = FactoryArray<T>.GetIntegerArray(reader.GetString(3));
+			}
+			CloseLast();
+			return p;
+		}
+		public int InsertProject(Project<T> project)
+		{
+			var newId = -1;
+			Open();
+
+			var cmd = Pool.LastConnection.CreateCommand();
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.CommandText = "[NeuralDatabase].[dbo].[insertProject]";
+			cmd.Parameters.Add("@id", SqlDbType.Int).Value = project.Id; 
+			cmd.Parameters.Add("@name", SqlDbType.Text).Value = project.Name;
+			cmd.Parameters.Add("@settingsId", SqlDbType.Int).Value = project.SettingsId;
+			cmd.Parameters.Add("@netIds", SqlDbType.Text).Value = FactoryArray<T>.GenericArrayString(project.NetIds);
+
+			var reader = cmd.ExecuteReader();
+			while (reader.Read())
+			{
+				newId = reader.GetInt32(0);
+			}
+			CloseLast();
+
+			return newId;
+		}
+
 		private static DataBase<T> _instance;
 		public PoolConnection Pool { get; set; }
 		private String stringConnection = @"Data Source=(localdb)\ProjectsV12;AttachDbFilename=C:\Users\stas-\AppData\Local\Microsoft\VisualStudio\SSDT\Associative-Memory\NeuralDatabase.mdf;Initial Catalog=NeuralDatabase;Integrated Security=True";
+
 		private DataBase()
 		{
 			this.Pool = new PoolConnection(stringConnection);

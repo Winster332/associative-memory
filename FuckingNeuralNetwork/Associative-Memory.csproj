@@ -59,6 +59,7 @@
     <Compile Include="Neural\Net.cs" />
     <Compile Include="Neural\Neuron.cs" />
     <Compile Include="Neural\PoolConnection.cs" />
+    <Compile Include="Neural\Project.cs" />
     <Compile Include="Neural\Synapse.cs" />
     <Compile Include="Neural\Vec3.cs" />
     <Compile Include="Program.cs" />

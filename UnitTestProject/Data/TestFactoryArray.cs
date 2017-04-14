@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using VisionBrain.Data;
 using FactoryArray = FuckingNeuralNetwork.Neural.FactoryArray<string>;
 using DataBase = FuckingNeuralNetwork.Neural.DataBase<string>;
 using Neuron = FuckingNeuralNetwork.Neural.Neuron<string>;
@@ -100,6 +99,24 @@ namespace UnitTestProject.Data
 
 			for (int i = 0; i < act.Count; i++)
 				Assert.AreEqual(ex[i], act[i]);
+		}
+		[TestMethod]
+		public void GetIntegerArray()
+		{
+			var v = FactoryArray.GetIntegerArray("[32,33,1]");
+
+			foreach (var i in v)
+				Console.WriteLine(i);
+
+			Assert.AreEqual(v[0], 32);
+			Assert.AreEqual(v[1], 33);
+			Assert.AreEqual(v[2], 1);
+		}
+		[TestMethod]
+		public void GetTextFromArrayInteger()
+		{
+			var v = FactoryArray.GenericArrayString(new int[] { 1,3,2 });
+			Assert.AreEqual(v, "[1,3,2]");
 		}
 	}
 }

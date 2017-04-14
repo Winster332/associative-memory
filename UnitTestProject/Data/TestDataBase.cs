@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Neuron = FuckingNeuralNetwork.Neural.Neuron<System.String>;
 using Synapse = FuckingNeuralNetwork.Neural.Synapse<System.String>;
 using Net = FuckingNeuralNetwork.Neural.Net<System.String>;
+using Project = FuckingNeuralNetwork.Neural.Project<string>;
 using DataColor = FuckingNeuralNetwork.Neural.DataColor;
 using DataBase = FuckingNeuralNetwork.Neural.DataBase<System.String>;
 
@@ -248,6 +249,31 @@ namespace UnitTestProject.Data
 			Assert.AreEqual(net.Neurons.Count, netNew.Neurons.Count);
 
 			net.Delete();
+		}
+		#endregion
+		#region project
+		[TestMethod]
+		public void InsertProject()
+		{
+			var project = Project.Load(Project.Create(new FuckingNeuralNetwork.Neural.Project<string>("First project test", 1, new int[] { 2,3 })));
+
+			Assert.AreNotEqual(-1, project.Id);
+			project.Delete();
+		}
+		[TestMethod]
+		public void UpdateProject()
+		{
+			var project = Project.Load(Project.Create(new FuckingNeuralNetwork.Neural.Project<string>("First project test", 1, new int[] { 2, 3 })));
+			project.Name = "new name";
+			project.NetIds = new int[] { 2, 4 };
+			project.Save();
+			var newProject = Project.Load(project.Id);
+
+			Assert.AreEqual(project.Id, newProject.Id);
+			Assert.AreEqual(project.Name, newProject.Name);
+			Assert.AreEqual(project.NetIds.Length, newProject.NetIds.Length);
+
+			project.Delete();
 		}
 		#endregion
 	}
