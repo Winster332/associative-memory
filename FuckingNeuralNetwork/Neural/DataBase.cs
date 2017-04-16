@@ -117,10 +117,28 @@ namespace FuckingNeuralNetwork.Neural
 		private static DataBase<T> _instance;
 		public PoolConnection Pool { get; set; }
 		private String stringConnection = @"Data Source=(localdb)\ProjectsV12;AttachDbFilename=C:\Users\stas-\AppData\Local\Microsoft\VisualStudio\SSDT\Associative-Memory\NeuralDatabase.mdf;Initial Catalog=NeuralDatabase;Integrated Security=True";
+		
+		public static void SetStringConnection(String text)
+		{
+			if (Instance == null)
+			{
+				Instance = new DataBase<T>(text);
+				Instance.Pool = new PoolConnection(text);
+			} else {
+				Instance.stringConnection = text;
+				Instance.Pool.CloseAll();
+				Instance.Pool = new PoolConnection(text);
+			}
+		}
 
 		private DataBase()
 		{
 			this.Pool = new PoolConnection(stringConnection);
+		}
+
+		private DataBase(String text)
+		{
+			this.stringConnection = text;
 		}
 	
 		public void Open()

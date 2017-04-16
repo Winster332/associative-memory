@@ -12,9 +12,8 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        mc:Ignorable="d"
 		Style="{StaticResource MaterialWindowDark}"
-        Title="Создание подключения к БД" Height="230" Width="400">
+        Title="Создание подключения к БД" Height="280" Width="400">
     <Grid>
         <Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>
@@ -26,12 +25,17 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="5 0 5 0" Grid.Column="1">
+            <TextBox x:Name="TextName" Height="25"></TextBox>
             <TextBox x:Name="TextDataSource" Height="25"></TextBox>
             <TextBox x:Name="TextAttachDb" Height="25"></TextBox>
             <TextBox x:Name="TextInitialCatalog" Height="25"></TextBox>
-            <TextBox x:Name="TextIntegratedSecurity" Height="25"></TextBox>
+            <ComboBox x:Name="CBSecurity">
+                <TextBlock>True</TextBlock>
+                <TextBlock>False</TextBlock>
+            </ComboBox> 
         </StackPanel>
         <StackPanel Margin="5 0 0 0" Grid.Column="0">
+            <TextBlock Margin="0 10 0 0">Name</TextBlock>
             <TextBlock Margin="0 10 0 0">Data Source</TextBlock>
             <TextBlock Margin="0 10 0 0">AttachDbFilename</TextBlock>
             <TextBlock Margin="0 10 0 0">Initial Catalog</TextBlock>
@@ -46,6 +50,15 @@
                 <ColumnDefinition Width="120"/>
             </Grid.ColumnDefinitions>
 
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+					<ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+				
+                <Image Source="512x512.png" Grid.Column="0"/>
+                <TextBlock Grid.Column="1" Margin="0 6 0 0">MS SQL</TextBlock>
+            </Grid>
             <Button Grid.Column="1" FontSize="10" Click="Button_Click">Проверить db</Button>
             <Button Grid.Column="3" FontSize="10" Click="Button_Click_1">Подключиться</Button>
         </Grid>
