@@ -15,7 +15,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
 		Style="{StaticResource MaterialWindowDark}"
-        Title="MainWindow" Height="500" Width="525">
+        Title="Associative Memory" Height="500" Width="525">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="71"/>
@@ -30,39 +30,37 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
+            <Image Grid.Column="0" Source="512x512.png"/>
 
             <Canvas x:Name="canvas" Grid.Column="0">
                 <ui:LayoutProjects x:Name="projects" />
                 <ui:LeftBarContent x:Name="leftPanel" Grid.Column="0" Margin="-200, 0, 0, 0"/>
             </Canvas>
 
-            <Grid Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
+            <!--<Grid Grid.Column="1">-->
+                    <!--<ColumnDefinition Width="*"/>-->
+                    <!--<ColumnDefinition Width="*"/>-->
+                <!--</Grid.ColumnDefinitions>-->
+                <!--<Grid.RowDefinitions>-->
+                    <!--<RowDefinition Height="*"/>-->
+                    <!--<RowDefinition Height="*"/>-->
+                <!--</Grid.RowDefinitions>-->
 
-                <materialDesign:Card Padding="35" Margin="5" Grid.Column="0" Grid.Row="0">
-                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">One card</TextBlock>
-                </materialDesign:Card>
-                <materialDesign:Card Padding="35" Margin="5" Grid.Column="1" Grid.Row="0">
-                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Two card</TextBlock>
-                </materialDesign:Card>
-                <materialDesign:Card Padding="35" Margin="5" Grid.Column="0" Grid.Row="1">
-                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Three card</TextBlock>
-                </materialDesign:Card>
-                <materialDesign:Card Padding="35" Margin="5" Grid.Column="1" Grid.Row="1">
-                    <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Four card</TextBlock>
-                </materialDesign:Card>
-            </Grid>
+                <!--<materialDesign:Card Padding="35" Margin="5" Grid.Column="0" Grid.Row="0">-->
+                    <!--<TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">One card</TextBlock>-->
+                <!--</materialDesign:Card>-->
+            <Image Grid.Column="1" Source="512x512.png"/>
+                <!--<materialDesign:Card Padding="35" Margin="5" Grid.Column="1" Grid.Row="0">-->
+                    <!--<TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Two card</TextBlock>-->
+                <!--</materialDesign:Card>-->
+                <!--<materialDesign:Card Padding="35" Margin="5" Grid.Column="0" Grid.Row="1">-->
+                    <!--<TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Three card</TextBlock>-->
+                <!--</materialDesign:Card>-->
+                <!--<materialDesign:Card Padding="35" Margin="5" Grid.Column="1" Grid.Row="1">-->
+                    <!--<TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Four card</TextBlock>-->
+                <!--</materialDesign:Card>-->
+            <!--</Grid>-->
         </Grid>
-
-        <TextBlock Grid.Row="2" Padding="100, 3" Background="#FF007ACC">
-			Тут будет строка состояний
-        </TextBlock>
+		<ui:SmallInformPanel Grid.Row="2"/>
     </Grid>
 </Window>

@@ -21,7 +21,7 @@ namespace VisionBrain.UI
 	public partial class TopBar : UserControl
 	{
 		public event EventHandler ClickOpenMenu;
-		private bool isVisible = false;
+		public bool isVisible = false;
 		private UIElement leftPanel;
 
 		public TopBar()

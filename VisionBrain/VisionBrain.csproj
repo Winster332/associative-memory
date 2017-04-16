@@ -71,7 +71,6 @@
     </ApplicationDefinition>
     <Compile Include="Logic\IView3D.cs" />
     <Compile Include="Logic\UIView.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="UI\LayoutProjects.xaml.cs">
       <DependentUpon>LayoutProjects.xaml</DependentUpon>
     </Compile>
@@ -81,8 +80,8 @@
     <Compile Include="UI\LeftBarContent.xaml.cs">
       <DependentUpon>LeftBarContent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\SmallInformPanel.xaml.cs">
-      <DependentUpon>SmallInformPanel.xaml</DependentUpon>
+    <Compile Include="UI\BottomInfoPanel.xaml.cs">
+      <DependentUpon>BottomInfoPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\TopBar.xaml.cs">
       <DependentUpon>TopBar.xaml</DependentUpon>
@@ -136,7 +135,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UI\SmallInformPanel.xaml">
+    <Page Include="UI\BottomInfoPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

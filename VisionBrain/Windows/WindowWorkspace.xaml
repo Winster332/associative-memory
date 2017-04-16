@@ -14,15 +14,18 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
 		Style="{StaticResource MaterialWindowDark}"
-        Title="WindowWorkspace" Height="500" Width="800">
+        Title="Associative Memory" Height="500" Width="800">
     <Grid>
         <Grid.RowDefinitions>
 			<RowDefinition Height="70"/>
 			<RowDefinition Height="*"/>
-			<RowDefinition Height="25"/>
+			<RowDefinition Height="20"/>
 		</Grid.RowDefinitions>
-		<ui:TopBar Grid.Row="0"/>
+		<ui:TopBar x:Name="topBar" Grid.Row="0"/>
         <ui:LayoutView3D x:Name="View" Grid.Row="1"/>
+        <Canvas x:Name="canvas" Grid.Row="1">
+            <ui:LeftBarContent x:Name="leftPanel" Grid.Column="0" Margin="-200, 0, 0, 0"/>
+        </Canvas>
 		<ui:SmallInformPanel Grid.Row="2"/>
     </Grid>
 </Window>

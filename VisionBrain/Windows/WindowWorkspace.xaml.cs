@@ -26,9 +26,11 @@ namespace VisionBrain.Windows
 		{
 			CurrentProject = project;
 			this.Logic = logic;
-			this.Logic.View.View3D = View;
-
 			InitializeComponent();
+
+			this.topBar.SetLeftPanel(leftPanel);
+			this.topBar.isVisible = false;
+			this.Logic.View.View3D = View;
 
 			this.Title += " - " + CurrentProject.Name;
 			
@@ -79,6 +81,5 @@ namespace VisionBrain.Windows
 			SystemCommands.RestoreWindow(this);
 		}
 		#endregion
-	
 	}
 }

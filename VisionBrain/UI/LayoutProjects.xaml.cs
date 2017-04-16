@@ -26,6 +26,19 @@ namespace VisionBrain.UI
 			InitializeComponent();
 
 			FuckingNeuralNetwork.Neural.DataBase<string>.Instance.GetProjects().ForEach(p => AddItem(p.Name));
+
+			listBox.MouseDoubleClick += (o, ee) =>
+			{
+				Windows.WindowWorkspace window = new Windows.WindowWorkspace(Logic, GetActiveProject());
+				Logic.View.WindowWorkspace = window;
+				window.Show();
+				Logic.View.MainWindow.Close();
+
+			};
+		}
+		public void OpenProject(String name)
+		{
+
 		}
 
 		public void AddItem(String name)
@@ -33,12 +46,6 @@ namespace VisionBrain.UI
 			ListBoxItem itme = new ListBoxItem();
 			itme.Content = name;
 			listBox.Items.Add(name);
-			itme.MouseDoubleClick+=(o, e) => 
-			{
-				Windows.WindowWorkspace window = new Windows.WindowWorkspace(Logic, GetActiveProject());
-				Logic.View.WindowWorkspace = window;
-				window.Show();
-			};
 		}
 
 		public void DeleteItem(String name)
@@ -52,10 +59,6 @@ namespace VisionBrain.UI
 		{
 			var window = new Windows.WindowCreateProject(Logic);
 			window.ShowDialog();
-			window.Closed += (o, ee) =>
-			{
-				
-			};
 		}
 
 		private void Button_Click_1(object sender, RoutedEventArgs e)
