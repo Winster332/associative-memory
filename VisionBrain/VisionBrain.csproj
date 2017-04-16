@@ -37,6 +37,9 @@
   <PropertyGroup>
     <ApplicationIcon>512x512.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>VisionBrain.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
@@ -68,6 +71,7 @@
     </ApplicationDefinition>
     <Compile Include="Logic\IView3D.cs" />
     <Compile Include="Logic\UIView.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="UI\LayoutProjects.xaml.cs">
       <DependentUpon>LayoutProjects.xaml</DependentUpon>
     </Compile>
@@ -212,6 +216,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="512x512.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="512x512.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

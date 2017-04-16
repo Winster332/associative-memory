@@ -13,5 +13,10 @@ namespace VisionBrain
 	/// </summary>
 	public partial class App : Application
 	{
+		public App()
+		{
+			SplashScreen splashScreen = new SplashScreen("512x512.png");
+			splashScreen.Show(true);
+		}
 	}
 }
