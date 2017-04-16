@@ -14,6 +14,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
 		Style="{StaticResource MaterialWindowDark}"
+		WindowState="Maximized"
         Title="Associative Memory" Height="500" Width="800">
     <Grid>
         <Grid.RowDefinitions>

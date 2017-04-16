@@ -32,6 +32,8 @@ namespace VisionBrain
 			Logic.View.Projects = projects;
 			projects.Logic = Logic;
 
+			//Canvas.SetLeft(this, );
+
 			#region add command
 			this.CommandBindings.Add(new CommandBinding(SystemCommands.CloseWindowCommand, this.OnCloseWindow));
 			this.CommandBindings.Add(new CommandBinding(SystemCommands.MaximizeWindowCommand, this.OnMaximizeWindow, this.OnCanResizeWindow));

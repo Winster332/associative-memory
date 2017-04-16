@@ -49,6 +49,10 @@
       <HintPath>..\packages\MaterialDesignThemes.2.3.0.823\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -71,6 +75,9 @@
     </ApplicationDefinition>
     <Compile Include="Logic\IView3D.cs" />
     <Compile Include="Logic\UIView.cs" />
+    <Compile Include="UI\LayoutDBs.xaml.cs">
+      <DependentUpon>LayoutDBs.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\LayoutProjects.xaml.cs">
       <DependentUpon>LayoutProjects.xaml</DependentUpon>
     </Compile>
@@ -92,6 +99,9 @@
     </Compile>
     <Compile Include="Windows\WindowAppSettings.xaml.cs">
       <DependentUpon>WindowAppSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\WindowCreateDBConnectins.xaml.cs">
+      <DependentUpon>WindowCreateDBConnectins.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\WindowCreateProject.xaml.cs">
       <DependentUpon>WindowCreateProject.xaml</DependentUpon>
@@ -123,6 +133,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UI\LayoutDBs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UI\LayoutProjects.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -148,6 +162,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\WindowAppSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\WindowCreateDBConnectins.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

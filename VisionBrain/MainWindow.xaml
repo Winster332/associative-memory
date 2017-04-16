@@ -15,7 +15,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
 		Style="{StaticResource MaterialWindowDark}"
-        Title="Associative Memory" Height="500" Width="525">
+        Title="Associative Memory" Height="500" Width="600">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="71"/>
@@ -33,9 +33,10 @@
             <Image Grid.Column="0" Source="512x512.png"/>
 
             <Canvas x:Name="canvas" Grid.Column="0">
-                <ui:LayoutProjects x:Name="projects" />
+                <ui:LayoutProjects x:Name="projects" Width="300" />
                 <ui:LeftBarContent x:Name="leftPanel" Grid.Column="0" Margin="-200, 0, 0, 0"/>
             </Canvas>
+			<ui:LayoutDBs Grid.Column="1"/>
 
             <!--<Grid Grid.Column="1">-->
                     <!--<ColumnDefinition Width="*"/>-->

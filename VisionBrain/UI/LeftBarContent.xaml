@@ -12,7 +12,10 @@
     <Grid>
         <StackPanel>
             <ListBox Name="listBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200">
-            <ListBoxItem Content="Войти" MouseLeftButtonUp="ListBoxItem_MouseLeftButtonUp"></ListBoxItem>
+                <ListBoxItem Content="Создать проект" MouseLeftButtonUp="ListBoxItem_MouseLeftButtonUp"></ListBoxItem>
+                <ListBoxItem Content="Подключиться к БД" MouseLeftButtonUp="ListBoxItem_MouseLeftButtonUp"></ListBoxItem>
+
+                <ListBoxItem Content="Войти" MouseLeftButtonUp="ListBoxItem_MouseLeftButtonUp"></ListBoxItem>
             <ListBoxItem Content="Регистрация"></ListBoxItem>
 
             <ListBoxItem Content="Анализ дистанций" IsEnabled="False"></ListBoxItem>
