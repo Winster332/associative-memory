@@ -20,6 +20,8 @@ namespace VisionBrain.Logic
 			int id = Project.Create(project);
 			if (id != -1)
 				View.Projects.AddItem(project.Name);
+			Windows.WindowWorkspace window = new Windows.WindowWorkspace(this, project);
+			window.Show();
 		}
 		public void DeleteProject(FuckingNeuralNetwork.Neural.Project<String> project)
 		{

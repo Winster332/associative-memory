@@ -20,8 +20,6 @@
         <Button Grid.Column="1" Grid.Row="0" Click="Button_Click_1">Удалить</Button>
 
         <ListBox Grid.Row="1" Grid.ColumnSpan="2" Name="listBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200">
-            <ListBoxItem Content="Coffie"></ListBoxItem>
-            <ListBoxItem Content="Tea"></ListBoxItem>
         </ListBox>
     </Grid>
 </UserControl>

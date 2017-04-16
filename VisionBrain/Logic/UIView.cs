@@ -10,5 +10,7 @@ namespace VisionBrain.Logic
 	{
 		public VisionBrain.MainWindow MainWindow { get; set; }
 		public VisionBrain.UI.LayoutProjects Projects { get; set; }
+		public Windows.WindowWorkspace WindowWorkspace { get; set; }
+		public IView3D View3D { get; set; }
 	}
 }

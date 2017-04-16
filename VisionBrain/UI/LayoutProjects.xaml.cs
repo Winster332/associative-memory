@@ -33,6 +33,12 @@ namespace VisionBrain.UI
 			ListBoxItem itme = new ListBoxItem();
 			itme.Content = name;
 			listBox.Items.Add(name);
+			itme.MouseDoubleClick+=(o, e) => 
+			{
+				Windows.WindowWorkspace window = new Windows.WindowWorkspace(Logic, GetActiveProject());
+				Logic.View.WindowWorkspace = window;
+				window.Show();
+			};
 		}
 
 		public void DeleteItem(String name)
