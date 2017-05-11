@@ -20,6 +20,7 @@ namespace VisionBrain.UI
 	/// </summary>
 	public partial class LeftBarContent : UserControl
 	{
+		public Logic.UILogic Logic { get; set; }
 		public LeftBarContent()
 		{
 			InitializeComponent();
@@ -36,6 +37,20 @@ namespace VisionBrain.UI
 
 		private void ListBoxItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
+			var item = ((ListBoxItem)sender).Content.ToString();
+
+			switch (item)
+			{
+				case "Создать проект":
+					var windowCreateProject = new Windows.WindowCreateProject(Logic);
+					windowCreateProject.Show();
+					break;
+				case "Подключиться к БД":
+					var windowCreateCDBs = new Windows.WindowCreateDBConnectins(Logic);
+					windowCreateCDBs.ShowDialog();
+					break;
+
+			}
 		}
 	}
 }

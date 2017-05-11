@@ -29,8 +29,12 @@ namespace VisionBrain
 
 			Logic = new Logic.UILogic();
 			Logic.View.MainWindow = this;
+			Logic.View.LeftMenu = leftPanel;
+			Logic.View.ListDBs = listDBs;
 			Logic.View.Projects = projects;
 			projects.Logic = Logic;
+			leftPanel.Logic = Logic;
+
 
 			//Canvas.SetLeft(this, );
 

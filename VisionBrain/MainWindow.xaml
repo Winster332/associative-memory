@@ -36,7 +36,7 @@
                 <ui:LayoutProjects x:Name="projects" Width="300" />
                 <ui:LeftBarContent x:Name="leftPanel" Grid.Column="0" Margin="-200, 0, 0, 0"/>
             </Canvas>
-			<ui:LayoutDBs Grid.Column="1"/>
+			<ui:LayoutDBs x:Name="listDBs" Grid.Column="1"/>
 
             <!--<Grid Grid.Column="1">-->
                     <!--<ColumnDefinition Width="*"/>-->

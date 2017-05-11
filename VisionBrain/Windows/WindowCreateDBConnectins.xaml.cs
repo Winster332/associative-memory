@@ -20,15 +20,17 @@ namespace VisionBrain.Windows
 	/// </summary>
 	public partial class WindowCreateDBConnectins : Window
 	{
-		public WindowCreateDBConnectins()
+		private Logic.UILogic Logic;
+		public WindowCreateDBConnectins(Logic.UILogic logic)
 		{
+			this.Logic = logic;
 			InitializeComponent();
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			CreateConnection(GetStringConnection());
-        }
+			CheckConnection(GetStringConnection());
+		}
 
 		public void CreateConnection(String text)
 		{
@@ -43,6 +45,9 @@ namespace VisionBrain.Windows
 						writer.Write(jsonString);
 						writer.Close();
 					}
+
+					Logic.View.ListDBs.LoadDBs();
+					this.Close();
 				} catch (Exception ex) {
 					MessageBox.Show("ERROR: " + ex.Message);
 				}
@@ -74,7 +79,7 @@ namespace VisionBrain.Windows
 
 		private void Button_Click_1(object sender, RoutedEventArgs e)
 		{
-			CheckConnection(GetStringConnection());
+			CreateConnection(GetStringConnection());
 		}
 	}
 }

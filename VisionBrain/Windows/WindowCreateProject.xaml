@@ -14,7 +14,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
 		Style="{StaticResource MaterialWindowDark}"
-        Title="MainWindow" Height="500" Width="525">
+        Title="Создание проекта" Height="300" Width="200">
     <Grid>
         <Grid.RowDefinitions>
 			<RowDefinition Height="*"/>

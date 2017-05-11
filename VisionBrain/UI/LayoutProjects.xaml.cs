@@ -25,7 +25,7 @@ namespace VisionBrain.UI
 		{
 			InitializeComponent();
 
-			FuckingNeuralNetwork.Neural.DataBase<string>.Instance.GetProjects().ForEach(p => AddItem(p.Name));
+			//FuckingNeuralNetwork.Neural.DataBase<string>.Instance.GetProjects().ForEach(p => AddItem(p.Name));
 
 			listBox.MouseDoubleClick += (o, ee) =>
 			{

@@ -13,7 +13,7 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
 		Style="{StaticResource MaterialWindowDark}"
-        Title="Создание подключения к БД" Height="280" Width="400">
+        Title="Создание подключения к БД" Height="255" Width="400">
     <Grid>
         <Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"/>

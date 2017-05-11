@@ -73,6 +73,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Graphics\Camera.cs" />
     <Compile Include="Logic\IView3D.cs" />
     <Compile Include="Logic\UIView.cs" />
     <Compile Include="UI\LayoutDBs.xaml.cs">
