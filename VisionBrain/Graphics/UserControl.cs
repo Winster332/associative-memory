@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace VisionBrain.Graphics
 {
-	public class Camera : FuckingNeuralNetwork.Neural.Vec3
+	public class UserControl
 	{
-		public float Far { get; set; }
-		public float Near { get; set; }
-		public Camera()
+		public UserControl()
 		{
 
 		}

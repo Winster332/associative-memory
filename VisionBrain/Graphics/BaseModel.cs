@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace VisionBrain.Graphics
 {
-	public class Camera : FuckingNeuralNetwork.Neural.Vec3
+	public class BaseModel
 	{
-		public float Far { get; set; }
-		public float Near { get; set; }
-		public Camera()
-		{
-
-		}
+		System.Windows.Media.Color Color { get; set; }
 	}
 }
